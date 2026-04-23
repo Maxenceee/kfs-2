@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 16:23:35 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:59:39 by mgama            ###   ########.fr       */
+/*   Updated: 2026/04/23 14:05:16 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,25 @@ ksetup(void)
 }
 
 void
-_stack_grow(const char *str, int max)
+_stack_grow_2(int a, int b, int c, int d, int e)
 {
-	if (max <= 0)
-	{
-		kstackdump();
-		return;
-	}
+	int ab = a + b;
+	int cd = c + d;
+	int abcde = ab + cd + e;
+	printk("Stack growth test: %d\n", abcde);
+	kstackdump();
+}
 
-	_stack_grow(str, max - 1);
-	printk("%c", str[max - 1]);
+void
+_stack_grow_1(void)
+{
+	uint16_t buffer[256];
+	for (int i = 0; i < 256; i++)
+		buffer[i] = i;
+	
+	_stack_grow_2(1, 2, 3, 4, 5);
+	buffer[0] = 42;
+	printk("Buffer[0] after stack growth: %d\n", buffer[0]);
 }
 
 int
@@ -67,7 +76,7 @@ kmain(void)
 
 	printk("Welcome to KFS%d!\n", 2);
 
-	_stack_grow("Stack growth test.", 19);
+	_stack_grow_1();
 
 	return (0);
 }
