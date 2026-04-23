@@ -20,14 +20,14 @@ static void	pkprint_in_int_spaces(char *d_i, int save_i,
 
 	len = pkstrlen(d_i);
 	if (save_i < 0 && flags.dot >= 0)
-		pkputchar_c('-', count);
+		pkputchar_c('-', count, flags.attrib);
 	else if (save_i >= 0 && flags.plus == 1)
-		pkputchar_c('+', count);
+		pkputchar_c('+', count, flags.attrib);
 	else if (save_i >= 0 && flags.blank == 1)
-		pkputchar_c(' ', count);
+		pkputchar_c(' ', count, flags.attrib);
 	if (flags.dot >= 0)
 		pkprint_width(flags.dot - 1, len - 1, 1, count);
-	pkputstrprec(d_i, len, count);
+	pkputstrprec(d_i, len, count, flags.attrib);
 }
 
 static void	pkprint_int_spaces(char *d_i, int save_i,
@@ -60,7 +60,7 @@ static void	pkprint_int_flags(t_flags *flags, long int *li, int *count)
 	if (*li < 0)
 	{
 		if (flags->zero == 1 && flags->dot == -1)
-			pkputstrprec("-", 1, count);
+			pkputstrprec("-", 1, count, flags->attrib);
 		(*li) *= -1;
 		flags->zero = 1;
 		flags->width--;
@@ -68,13 +68,13 @@ static void	pkprint_int_flags(t_flags *flags, long int *li, int *count)
 	else if (*li >= 0 && flags->plus == 1
 		&& flags->zero == 1 && flags->dot == -1)
 	{
-		pkputstrprec("+", 1, count);
+		pkputstrprec("+", 1, count, flags->attrib);
 		flags->plus = 0;
 	}
 	else if (*li >= 0 && flags->blank == 1
 		&& flags->zero == 1 && flags->dot == -1)
 	{
-		pkputstrprec(" ", 1, count);
+		pkputstrprec(" ", 1, count, flags->attrib);
 		flags->blank = 0;
 	}
 }

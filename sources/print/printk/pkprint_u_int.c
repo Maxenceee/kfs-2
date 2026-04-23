@@ -20,7 +20,7 @@ static void	pkprint_in_u_int_spaces(char *unsi_int, int *count, t_flags flags)
 	len = pkstrlen(unsi_int);
 	if (flags.dot >= 0)
 		pkprint_width(flags.dot - 1, len - 1, 1, count);
-	pkputstrprec(unsi_int, len, count);
+	pkputstrprec(unsi_int, len, count, flags.attrib);
 }
 
 static void	pkprint_u_int_spaces(char *unsi_int, int *count, t_flags flags)

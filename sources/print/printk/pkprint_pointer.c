@@ -20,14 +20,14 @@ static void	pkprint_in_pointer_spaces(char *pointer, uint32_t or,
 
 	len = pkstrlen(pointer);
 	if (or)
-		pkputstrprec("0x", 2, count);
+		pkputstrprec("0x", 2, count, flags.attrib);
 	if (flags.dot >= 0)
 	{
 		pkprint_width(flags.dot, len, 1, count);
-		pkputstrprec(pointer, flags.dot, count);
+		pkputstrprec(pointer, flags.dot, count, flags.attrib);
 	}
 	else
-		pkputstrprec(pointer, len, count);
+		pkputstrprec(pointer, len, count, flags.attrib);
 }
 
 void	pkprint_pointer(uint32_t ull, int *count, t_flags flags)
@@ -37,7 +37,7 @@ void	pkprint_pointer(uint32_t ull, int *count, t_flags flags)
 
 	if (ull == 0 && flags.dot == 0)
 	{
-		pkputstrprec("0x", 2, count);
+		pkputstrprec("0x", 2, count, flags.attrib);
 		pkprint_width(flags.width, 0, 1, count);
 		return ;
 	}

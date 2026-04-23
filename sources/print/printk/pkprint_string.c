@@ -13,22 +13,13 @@
 #include "_printk.h"
 #include "print.h"
 
-void	pkput_str(char *str, int *count)
-{
-	uint32_t	c;
-
-	c = pkstrlen(str);
-	vga_puts(str, c, VGA_FORE_WHITE | VGA_BACK_BLACK);
-	(*count) += c;
-}
-
-void	pkputstrprec(char *str, int prec, int *count)
+void	pkputstrprec(char *str, int prec, int *count, uint8_t attrib)
 {
 	int	c;
 
 	c = 0;
 	while (str[c] && c < prec)
-		pkputchar(str[c++]);
+		pkputchar(str[c++], attrib);
 	(*count) += c;
 }
 
@@ -40,11 +31,11 @@ static void	pkprint_spaces(char *str, int *count, t_flags flags)
 	if (flags.dot >= 0)
 	{
 		pkprint_width(flags.dot, len, 0, count);
-		pkputstrprec(str, flags.dot, count);
+		pkputstrprec(str, flags.dot, count, flags.attrib);
 	}
 	else
 	{
-		pkputstrprec(str, len, count);
+		pkputstrprec(str, len, count, flags.attrib);
 	}
 }
 

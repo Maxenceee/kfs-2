@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 12:48:27 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:40:57 by mgama            ###   ########.fr       */
+/*   Updated: 2026/04/23 13:47:59 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_flags
 	int				star;
 	int				hex;
 	int				blank;
+	uint8_t			attrib;
 }					t_flags;
 
 /* printf */
@@ -50,13 +51,12 @@ void	pkprint_width(int width, int minus, int has_zero, int *count);
 void	pkprint_max_width(int width, int max, int has_zero, int *count);
 
 /* print_char */
-void	pkputchar(char c);
-void	pkputchar_c(char c, int *count);
+void	pkputchar(char c, uint8_t attrib);
+void	pkputchar_c(char c, int *count, uint8_t attrib);
 void	pkprint_char(char c, int *count, t_flags flags, int percent);
 
 /* print_string */
-void	pkput_str(char *str, int *count);
-void	pkputstrprec(char *str, int prec, int *count);
+void	pkputstrprec(char *str, int prec, int *count, uint8_t attrib);
 void	pkprint_str(char *s, int *count, t_flags flags);
 
 /* print_int */

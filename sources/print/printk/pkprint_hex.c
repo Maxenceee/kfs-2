@@ -20,9 +20,9 @@ static void	pkprint_hex_prefix(char *hexa, int lower,
 	if (flags->hex == 1)
 	{
 		if (lower == 1)
-			pkputstrprec("0x", 2, count);
+			pkputstrprec("0x", 2, count, flags->attrib);
 		else
-			pkputstrprec("0X", 2, count);
+			pkputstrprec("0X", 2, count, flags->attrib);
 		flags->width -= 2;
 		flags->hex = 0;
 	}
@@ -37,7 +37,7 @@ static void	pkprint_in_hex_spaces(char *hexa, int lower,
 	pkprint_hex_prefix(hexa, lower, count, &flags);
 	if (flags.dot >= 0)
 		pkprint_width(flags.dot - 1, len - 1, 1, count);
-	pkputstrprec(hexa, len, count);
+	pkputstrprec(hexa, len, count, flags.attrib);
 }
 
 static void	pkprint_hex_spaces(char *hexa, int lower,
