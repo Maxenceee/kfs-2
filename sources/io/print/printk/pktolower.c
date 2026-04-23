@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pklen_bonus.c                                     :+:      :+:    :+:   */
+/*   pktolower_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/05 21:23:53 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:00:54 by mgama            ###   ########.fr       */
+/*   Created: 2022/11/07 13:51:16 by mgama             #+#    #+#             */
+/*   Updated: 2026/04/23 13:05:06 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "print.h"
+#include "_printk.h"
+#include "io/print/print.h"
 
-uint32_t	pkstrlen(const char *str)
+char	*pkstr_tolower(char *str)
 {
-	uint32_t	count;
+	uint32_t	i;
 
-	count = 0;
-	while (*str != '\0')
-	{
-		str++;
-		count++;
-	}
-	return (count);
+	i = -1;
+	while (str[++i])
+		str[i] = pktolower(str[i]);
+	return (str);
+}
+
+int	pktolower(int num)
+{
+	if (num >= 65 && num <= 90)
+		num += 32;
+	return (num);
 }

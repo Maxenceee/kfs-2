@@ -6,11 +6,11 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 12:35:15 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 14:05:53 by mgama            ###   ########.fr       */
+/*   Updated: 2026/04/23 15:21:54 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "print.h"
+#include "io/print/print.h"
 
 extern uint32_t stack_space;
 

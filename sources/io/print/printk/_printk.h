@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 12:48:27 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:52:17 by mgama            ###   ########.fr       */
+/*   Updated: 2026/04/23 15:21:12 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef __builtin_va_list va_list;
 
 #define NULL ((void *)0)
 
-#include "screen.h"
+#include "io/screen/screen.h"
 #include "types.h"
 
 void*	__printk_alloc(uint32_t size);

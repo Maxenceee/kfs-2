@@ -1,43 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pkstrlcat_bonus.c                                 :+:      :+:    :+:   */
+/*   pklen_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 13:59:56 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:04:48 by mgama            ###   ########.fr       */
+/*   Created: 2022/09/05 21:23:53 by mgama             #+#    #+#             */
+/*   Updated: 2026/04/23 13:00:54 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_printk.h"
-#include "print.h"
+#include "io/print/print.h"
 
-int	pkstrlcat(char *dest, char *src, uint32_t size)
+uint32_t	pkstrlen(const char *str)
 {
-	char	*d;
-	char	*s;
-	uint32_t	n;
-	uint32_t	dlen;
+	uint32_t	count;
 
-	d = dest;
-	s = src;
-	n = size;
-	while (n-- != 0 && *d != '\0')
-		d++;
-	dlen = d - dest;
-	n = size - dlen;
-	if (n == 0)
-		return (dlen + (int)pkstrlen(s));
-	while (*s != '\0')
+	count = 0;
+	while (*str != '\0')
 	{
-		if (n != 1)
-		{
-			*d++ = *s;
-			n--;
-		}
-		s++;
+		str++;
+		count++;
 	}
-	*d = '\0';
-	return (dlen + (s - src));
+	return (count);
 }

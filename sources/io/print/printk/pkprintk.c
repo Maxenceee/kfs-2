@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "_printk.h"
-#include "print.h"
+#include "io/print/print.h"
 
 static t_flags	pkflags(uint8_t attrib)
 {

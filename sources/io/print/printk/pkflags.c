@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "_printk.h"
-#include "print.h"
+#include "io/print/print.h"
 
 void	pkcheck_flags(const char *fmt, va_list *argp, t_flags *flags, int *idx)
 {

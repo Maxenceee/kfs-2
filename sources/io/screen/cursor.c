@@ -6,12 +6,12 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 17:07:21 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/20 17:44:36 by mgama            ###   ########.fr       */
+/*   Updated: 2026/04/23 15:22:41 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "screen.h"
-#include "io.h"
+#include "io/screen/screen.h"
+#include "io/io.h"
 
 void
 enable_cursor(uint8_t cursor_start, uint8_t cursor_end)

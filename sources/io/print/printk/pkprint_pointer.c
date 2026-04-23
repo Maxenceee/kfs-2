@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "_printk.h"
-#include "print.h"
+#include "io/print/print.h"
 
 static void	pkprint_in_pointer_spaces(char *pointer, uint32_t or,
 	int *count, t_flags flags)

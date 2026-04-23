@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pkvalids_bonus.c                                  :+:      :+:    :+:   */
+/*   pkstrdup_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 18:24:43 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:05:23 by mgama            ###   ########.fr       */
+/*   Created: 2022/11/07 16:42:36 by mgama             #+#    #+#             */
+/*   Updated: 2026/04/23 13:17:21 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "_printk.h"
-#include "print.h"
+#include "io/print/print.h"
 
-int	pkis_valid_type(int c)
+char	*pkstrdup(const char *src)
 {
-	return ((c == 'c') || (c == 's') || (c == 'd') || (c == 'i') || (c == 'f')
-		|| (c == 'u') || (c == 'x') || (c == 'X') || (c == 'p') || (c == '%'));
-}
+	char	*str;
+	int		i;
 
-int	pkis_valid_flag(int c)
-{
-	return ((c == '-') || (c == ' ') || (c == '0') || (c == '.') || (c == '*')
-		|| (c == '+') || (c == '#'));
-}
-
-int	pkmin(int a, int b)
-{
-	if (a > b)
-		return (b);
-	return (a);
+	if (!src)
+		return (NULL);
+	i = pkstrlen(src);
+	str = __printk_alloc((i + 1) * sizeof(char));
+	if (!str)
+		return (NULL);
+	pkmemcpy(str, src, i);
+	pkmemset(str + i, '\0', sizeof(char));
+	return (str);
 }

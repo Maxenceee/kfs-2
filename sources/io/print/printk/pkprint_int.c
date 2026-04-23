@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "_printk.h"
-#include "print.h"
+#include "io/print/print.h"
 
 static void	pkprint_in_int_spaces(char *d_i, int save_i,
 	int *count, t_flags flags)

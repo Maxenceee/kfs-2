@@ -1,13 +1,13 @@
-MANDATORY_DIR   =   sources
+SOURCE_DIR      =   sources
 INCLUDES_DIR    =   includes
 OBJ_DIR         =   .objs
 ISO_DIR         =   iso_root
 
-SRCS            =   $(shell find $(MANDATORY_DIR) -name "*.c")
-SRCS_ASM        =   $(shell find $(MANDATORY_DIR) -name "*.asm")
+SRCS            =   $(shell find $(SOURCE_DIR) -name "*.c")
+SRCS_ASM        =   $(shell find $(SOURCE_DIR) -name "*.asm")
 
-OBJS            =   $(patsubst $(MANDATORY_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
-OBJS_ASM        =   $(patsubst $(MANDATORY_DIR)/%.asm, $(OBJ_DIR)/%.o, $(SRCS_ASM))
+OBJS            =   $(patsubst $(SOURCE_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
+OBJS_ASM        =   $(patsubst $(SOURCE_DIR)/%.asm, $(OBJ_DIR)/%.o, $(SRCS_ASM))
 
 NAME            =   Galileo.bin
 ISO_NAME        =   Galileo.iso
@@ -19,7 +19,7 @@ RM              =   rm -rf
 CFLAGS          =   -m32 -fno-builtin -fno-stack-protector \
                     -nostdlib -nodefaultlibs -ffreestanding \
                     -fno-pie -Wall \
-					-I $(INCLUDES_DIR)
+					-I $(INCLUDES_DIR) -I $(SOURCE_DIR)
 # 					-Wextra -Werror 
 
 ASMFLAGS        =   -f elf32
@@ -42,12 +42,12 @@ DEFAULT         =   \033[0m
 
 all: $(ISO_NAME)
 
-$(OBJ_DIR)/%.o: $(MANDATORY_DIR)/%.c
+$(OBJ_DIR)/%.o: $(SOURCE_DIR)/%.c
 	@mkdir -p $(@D)
 	@echo "$(YELLOW)Compiling C [$<]$(DEFAULT)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ_DIR)/%.o: $(MANDATORY_DIR)/%.asm
+$(OBJ_DIR)/%.o: $(SOURCE_DIR)/%.asm
 	@mkdir -p $(@D)
 	@echo "$(YELLOW)Compiling ASM [$<]$(DEFAULT)"
 	@$(ASM) $(ASMFLAGS) $< -o $@
@@ -73,10 +73,10 @@ fclean: clean
 	@$(RM) $(NAME) $(ISO_NAME)
 
 run-kernel: $(NAME)
-	qemu-system-i386 -kernel $(NAME) -icount shift=2 -vga std
+	qemu-system-i386 -kernel $(NAME) -vga std
 
 run-iso: $(ISO_NAME)
-	qemu-system-i386 -cdrom $(ISO_NAME) -icount shift=2 -vga std
+	qemu-system-i386 -cdrom $(ISO_NAME) -vga std
 
 re: fclean all
 

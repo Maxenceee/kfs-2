@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pktolower_bonus.c                                 :+:      :+:    :+:   */
+/*   pkvalids_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 13:51:16 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:05:06 by mgama            ###   ########.fr       */
+/*   Created: 2022/11/19 18:24:43 by mgama             #+#    #+#             */
+/*   Updated: 2026/04/23 13:05:23 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "_printk.h"
-#include "print.h"
+#include "io/print/print.h"
 
-char	*pkstr_tolower(char *str)
+int	pkis_valid_type(int c)
 {
-	uint32_t	i;
-
-	i = -1;
-	while (str[++i])
-		str[i] = pktolower(str[i]);
-	return (str);
+	return ((c == 'c') || (c == 's') || (c == 'd') || (c == 'i') || (c == 'f')
+		|| (c == 'u') || (c == 'x') || (c == 'X') || (c == 'p') || (c == '%'));
 }
 
-int	pktolower(int num)
+int	pkis_valid_flag(int c)
 {
-	if (num >= 65 && num <= 90)
-		num += 32;
-	return (num);
+	return ((c == '-') || (c == ' ') || (c == '0') || (c == '.') || (c == '*')
+		|| (c == '+') || (c == '#'));
+}
+
+int	pkmin(int a, int b)
+{
+	if (a > b)
+		return (b);
+	return (a);
 }

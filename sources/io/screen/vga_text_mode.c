@@ -6,12 +6,12 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:26:04 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 12:34:14 by mgama            ###   ########.fr       */
+/*   Updated: 2026/04/23 15:28:57 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "screen.h"
-#include "delay.h"
+#include "io/screen/screen.h"
+#include "timer/delay.h"
 
 uint16_t cursor_pos = 0;
 
@@ -37,14 +37,32 @@ vga_put(const char c, uint8_t attrib)
 {
 	volatile uint16_t *buffer = (uint16_t *)VGA_TEXT_BUFFER;
 
-    if (c == '\n')
+    switch (c)
     {
-        cursor_pos += VGA_WIDTH - (cursor_pos % VGA_WIDTH);
-    }
-    else
-    {
-        buffer[cursor_pos] = (uint16_t)((attrib << 8) | c);
-        cursor_pos++;
+        case '\n':
+            cursor_pos += VGA_WIDTH - (cursor_pos % VGA_WIDTH);
+            break;
+
+        case '\r':
+            cursor_pos -= (cursor_pos % VGA_WIDTH);
+            break;
+
+        case '\t':
+            cursor_pos = (cursor_pos + 8) & ~(8 - 1);
+            break;
+
+        case '\b':
+            if (cursor_pos > 0)
+            {
+                cursor_pos--;
+                buffer[cursor_pos] = (uint16_t)((attrib << 8) | ' ');
+            }
+            break;
+
+        default:
+            buffer[cursor_pos] = (uint16_t)((attrib << 8) | c);
+            cursor_pos++;
+            break;
     }
 
     if (cursor_pos >= VGA_WIDTH * VGA_HEIGHT)

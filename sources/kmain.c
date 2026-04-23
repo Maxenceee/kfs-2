@@ -6,13 +6,15 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 16:23:35 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 14:33:55 by mgama            ###   ########.fr       */
+/*   Updated: 2026/04/23 15:54:43 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "screen.h"
-#include "delay.h"
-#include "print.h"
+#include "io/screen/screen.h"
+#include "timer/delay.h"
+#include "io/print/print.h"
+
+extern void	kernel_shell(void);
 
 void
 print_logo()
@@ -75,10 +77,12 @@ kmain(void)
 	ksetup();
 
 	printk("Welcome to KFS%d!\n", 2);
-	
-	ksleep(1500);
 
-	_stack_grow_1();
+	// ksleep(1500);
+
+	// _stack_grow_1();
+
+	kernel_shell();
 
 	return (0);
 }

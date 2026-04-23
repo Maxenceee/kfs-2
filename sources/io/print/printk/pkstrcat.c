@@ -1,49 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pkbzero_bonus.c                                   :+:      :+:    :+:   */
+/*   pkstrcat_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 16:48:29 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:09:34 by mgama            ###   ########.fr       */
+/*   Created: 2022/09/04 19:13:52 by mgama             #+#    #+#             */
+/*   Updated: 2026/04/23 13:04:18 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "_printk.h"
-#include "print.h"
+#include "io/print/print.h"
 
-void	*pkmemcpy(void *dst, const void *src, uint32_t n)
-{
-	uint32_t	i;
-	void	*lst_dst;
-
-	if (n == 0 || dst == src)
-		return (dst);
-	i = 0;
-	lst_dst = dst;
-	while (i < n)
-	{
-		((char *)dst)[i] = ((char *)src)[i];
-		i++;
-	}
-	return (lst_dst);
-}
-
-void	*pkmemset(void *b, int c, uint32_t len)
+char	*pkstrcpy(char *dest, char *src)
 {
 	uint32_t	i;
 
 	i = 0;
-	while (i < len)
+	while (*src != '\0')
 	{
-		((char *)b)[i] = (unsigned char)c;
+		dest[i] = *src;
+		src++;
 		i++;
 	}
-	return (b);
+	while (dest[i])
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
 }
 
-void	pkbzero(void *s, uint32_t n)
+char	*pkstrcat(char *dest, char *src)
 {
-	pkmemset(s, '\0', n);
+	pkstrcpy(dest + pkstrlen(dest), src);
+	return (dest);
 }
