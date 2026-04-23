@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:22:10 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 16:29:07 by mgama            ###   ########.fr       */
+/*   Updated: 2026/04/23 16:46:52 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ _irq_kbd_handler(void)
 
         if (ascii == '\n')
 		{
-            keyboard_buffer[keyboard_buffer_index] = '\0'; // Termine la string
-            command_ready = 1;                             // Prévient le main
-            keyboard_buffer_index = 0;                     // Reset pour la suite
+            keyboard_buffer[keyboard_buffer_index] = '\0';
+            command_ready = 1;
+            keyboard_buffer_index = 0;
             printk("\n");
         } 
         else if (ascii == '\b')
