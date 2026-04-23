@@ -36,7 +36,7 @@ static void	pkprint_in_hex_spaces(char *hexa, int lower,
 	len = pkstrlen(hexa);
 	pkprint_hex_prefix(hexa, lower, count, &flags);
 	if (flags.dot >= 0)
-		pkprint_width(flags.dot - 1, len - 1, 1, count);
+		pkprint_width(flags.dot - 1, len - 1, 1, count, flags.attrib);
 	pkputstrprec(hexa, len, count, flags.attrib);
 }
 
@@ -55,11 +55,11 @@ static void	pkprint_hex_spaces(char *hexa, int lower,
 	if (flags.dot >= 0)
 	{
 		flags.width -= flags.dot;
-		pkprint_width(flags.width, (2 * flags.hex), 0, count);
+		pkprint_width(flags.width, (2 * flags.hex), 0, count, flags.attrib);
 	}
 	else
 		pkprint_width(flags.width,
-			len + (2 * flags.hex), flags.zero, count);
+			len + (2 * flags.hex), flags.zero, count, flags.attrib);
 	if (flags.minus == 0)
 		pkprint_in_hex_spaces(hexa, lower, count, flags);
 }
@@ -72,7 +72,7 @@ void	pkprint_hex(uint32_t ui, int lower, int *count, t_flags flags)
 			+ ui);
 	if (flags.dot == 0 && ui == 0)
 	{
-		pkprint_width(flags.width, 0, 0, count);
+		pkprint_width(flags.width, 0, 0, count, flags.attrib);
 		return ;
 	}
 	if (ui == 0)

@@ -30,7 +30,7 @@ static void	pkprint_spaces(char *str, int *count, t_flags flags)
 	len = pkstrlen(str);
 	if (flags.dot >= 0)
 	{
-		pkprint_width(flags.dot, len, 0, count);
+		pkprint_width(flags.dot, len, 0, count, flags.attrib);
 		pkputstrprec(str, flags.dot, count, flags.attrib);
 	}
 	else
@@ -49,7 +49,7 @@ void	pkprint_str(char *s, int *count, t_flags flags)
 	if (!s)
 	{
 		if (!(flags.dot == -1 || flags.dot >= 6))
-			return (pkprint_width(flags.width, 0, 0, count));
+			return (pkprint_width(flags.width, 0, 0, count, flags.attrib));
 		s = "(null)";
 	}
 	len = pkstrlen(s);
@@ -58,11 +58,11 @@ void	pkprint_str(char *s, int *count, t_flags flags)
 	if (flags.minus == 1)
 		pkprint_spaces(s, count, flags);
 	if (flags.dot >= 0 && flags.width > 0)
-		pkprint_width(flags.width, flags.dot, 0, count);
+		pkprint_width(flags.width, flags.dot, 0, count, flags.attrib);
 	else if (flags.dot >= 0)
-		pkprint_max_width(flags.width, flags.dot, 0, count);
+		pkprint_max_width(flags.width, flags.dot, 0, count, flags.attrib);
 	else
-		pkprint_width(flags.width, len, 0, count);
+		pkprint_width(flags.width, len, 0, count, flags.attrib);
 	if (flags.minus == 0)
 		pkprint_spaces(s, count, flags);
 	(*count) += c;

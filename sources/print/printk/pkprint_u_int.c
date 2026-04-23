@@ -19,7 +19,7 @@ static void	pkprint_in_u_int_spaces(char *unsi_int, int *count, t_flags flags)
 
 	len = pkstrlen(unsi_int);
 	if (flags.dot >= 0)
-		pkprint_width(flags.dot - 1, len - 1, 1, count);
+		pkprint_width(flags.dot - 1, len - 1, 1, count, flags.attrib);
 	pkputstrprec(unsi_int, len, count, flags.attrib);
 }
 
@@ -35,11 +35,11 @@ static void	pkprint_u_int_spaces(char *unsi_int, int *count, t_flags flags)
 	if (flags.dot >= 0)
 	{
 		flags.width -= flags.dot;
-		pkprint_width(flags.width, 0, 0, count);
+		pkprint_width(flags.width, 0, 0, count, flags.attrib);
 	}
 	else
 		pkprint_width(flags.width,
-			len, flags.zero, count);
+			len, flags.zero, count, flags.attrib);
 	if (flags.minus == 0)
 		pkprint_in_u_int_spaces(unsi_int, count, flags);
 }
@@ -51,7 +51,7 @@ void	pkprint_u_int(uint32_t unsi, int *count, t_flags flags)
 	unsi = (uint32_t)(4294967295 + 1
 			+ unsi);
 	if (flags.dot == 0 && unsi == 0)
-		return (pkprint_width(flags.width, 0, 0, count));
+		return (pkprint_width(flags.width, 0, 0, count, flags.attrib));
 	unsi_int = pku_itoa(unsi);
 	if (!unsi_int)
 		return ;

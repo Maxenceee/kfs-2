@@ -26,7 +26,7 @@ static void	pkprint_in_int_spaces(char *d_i, int save_i,
 	else if (save_i >= 0 && flags.blank == 1)
 		pkputchar_c(' ', count, flags.attrib);
 	if (flags.dot >= 0)
-		pkprint_width(flags.dot - 1, len - 1, 1, count);
+		pkprint_width(flags.dot - 1, len - 1, 1, count, flags.attrib);
 	pkputstrprec(d_i, len, count, flags.attrib);
 }
 
@@ -43,10 +43,10 @@ static void	pkprint_int_spaces(char *d_i, int save_i,
 	if (flags.dot >= 0)
 	{
 		flags.width -= flags.dot;
-		pkprint_width(flags.width, 0, 0, count);
+		pkprint_width(flags.width, 0, 0, count, flags.attrib);
 	}
 	else
-		pkprint_width(flags.width, len, flags.zero, count);
+		pkprint_width(flags.width, len, flags.zero, count, flags.attrib);
 	if (flags.minus == 0)
 		pkprint_in_int_spaces(d_i, save_i, count, flags);
 }

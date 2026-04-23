@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 12:48:27 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:47:59 by mgama            ###   ########.fr       */
+/*   Updated: 2026/04/23 13:52:17 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,9 @@ typedef struct s_flags
 	uint8_t			attrib;
 }					t_flags;
 
-/* printf */
-int		pkprintf(const char *fmt, ...);
-
 /* print_width */
-void	pkprint_width(int width, int minus, int has_zero, int *count);
-void	pkprint_max_width(int width, int max, int has_zero, int *count);
+void	pkprint_width(int width, int minus, int has_zero, int *count, uint8_t attrib);
+void	pkprint_max_width(int width, int max, int has_zero, int *count, uint8_t attrib);
 
 /* print_char */
 void	pkputchar(char c, uint8_t attrib);
@@ -96,9 +93,6 @@ char	*pkitoa(long int n);
 /* uitoa*/
 char	*pku_itoa(uint32_t n);
 
-/* ftoa*/
-char	*pkftoa(double x, int max);
-
 /* strdup */
 char	*pkstrdup(const char *src);
 
@@ -107,9 +101,6 @@ int		pkstrlcat(char *dest, char *src, uint32_t size);
 
 /* strcat */
 char	*pkstrcat(char *dest, char *src);
-
-/* strjoin */
-char	*pkstrjoin(char *s1, char *s2);
 
 /* tolower */
 char	*pkstr_tolower(char *str);
@@ -127,9 +118,6 @@ void	*pkmemset(void *b, int c, uint32_t len);
 
 /* pkbzero */
 void	pkbzero(void *s, uint32_t n);
-
-/* pkpow */
-double	pkpow(double x, double y);
 
 int		pkmin(int a, int b);
 

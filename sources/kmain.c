@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 16:23:35 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 12:40:56 by mgama            ###   ########.fr       */
+/*   Updated: 2026/04/23 13:59:39 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,19 @@ ksetup(void)
 	enable_cursor(14, 15);
 }
 
+void
+_stack_grow(const char *str, int max)
+{
+	if (max <= 0)
+	{
+		kstackdump();
+		return;
+	}
+
+	_stack_grow(str, max - 1);
+	printk("%c", str[max - 1]);
+}
+
 int
 kmain(void)
 {
@@ -54,7 +67,7 @@ kmain(void)
 
 	printk("Welcome to KFS%d!\n", 2);
 
-	kstackdump();
+	_stack_grow("Stack growth test.", 19);
 
 	return (0);
 }

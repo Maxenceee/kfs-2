@@ -23,7 +23,7 @@ static void	pkprint_in_pointer_spaces(char *pointer, uint32_t or,
 		pkputstrprec("0x", 2, count, flags.attrib);
 	if (flags.dot >= 0)
 	{
-		pkprint_width(flags.dot, len, 1, count);
+		pkprint_width(flags.dot, len, 1, count, flags.attrib);
 		pkputstrprec(pointer, flags.dot, count, flags.attrib);
 	}
 	else
@@ -38,7 +38,7 @@ void	pkprint_pointer(uint32_t ull, int *count, t_flags flags)
 	if (ull == 0 && flags.dot == 0)
 	{
 		pkputstrprec("0x", 2, count, flags.attrib);
-		pkprint_width(flags.width, 0, 1, count);
+		pkprint_width(flags.width, 0, 1, count, flags.attrib);
 		return ;
 	}
 	if (ull)
@@ -53,7 +53,7 @@ void	pkprint_pointer(uint32_t ull, int *count, t_flags flags)
 		flags.dot = len;
 	if (flags.minus == 1)
 		pkprint_in_pointer_spaces(pointer, ull, count, flags);
-	pkprint_width(flags.width, len + (2 * (ull > 0)), 0, count);
+	pkprint_width(flags.width, len + (2 * (ull > 0)), 0, count, flags.attrib);
 	if (flags.minus == 0)
 		pkprint_in_pointer_spaces(pointer, ull, count, flags);
 	__printk_free(pointer);

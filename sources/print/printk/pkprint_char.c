@@ -30,7 +30,7 @@ void	pkprint_char(char c, int *count, t_flags flags, int percent)
 		return ((void)pkputchar_c(c, count, flags.attrib));
 	if (flags.minus == 1)
 		pkputchar_c(c, count, flags.attrib);
-	pkprint_width(flags.width, 1, 0, count);
+	pkprint_width(flags.width, 1, 0, count, flags.attrib);
 	if (flags.minus == 0)
 		pkputchar_c(c, count, flags.attrib);
 }

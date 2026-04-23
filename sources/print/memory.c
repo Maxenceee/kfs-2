@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 12:35:15 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:32:05 by mgama            ###   ########.fr       */
+/*   Updated: 2026/04/23 13:56:09 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,49 @@ extern uint32_t stack_space;
 static inline uint32_t
 get_esp(void)
 {
-    uint32_t esp;
-    asm volatile("mov %%esp, %0" : "=r"(esp));
+	uint32_t esp;
+	asm volatile("mov %%esp, %0" : "=r"(esp));
 
-    return esp;
+	return esp;
 }
 
 void
 kstackdump(void)
 {
 	uint32_t esp = get_esp();
-    uint32_t stack_base = (uint32_t)&stack_space;
+	uint32_t stack_base = (uint32_t)&stack_space;
+	uint32_t diff = stack_base - esp;
 
-    uint32_t diff = stack_base - esp;
-    uint32_t nb_words = diff / sizeof(uint32_t);
+	uint32_t nb_words = (diff + 3) / sizeof(uint32_t);
+	uint32_t *ptr = (uint32_t *)esp;
 
-    printk("\n=== FULL STACK DUMP ===");
-    printk("\nESP: %p | Base: %p | Size: %d bytes\n", esp, stack_base, diff);
+	printk("\n=== STACK DUMP | ESP: %p | SIZE: %d ===", esp, diff);
 
-    uint32_t *ptr = (uint32_t *)esp;
+	for (uint32_t i = 0; i < nb_words; i += 4)
+	{
+		printk("\n%p: ", (uint32_t)(ptr + i));
 
-    for (uint32_t i = 0; i < nb_words; i++) {
-        if (i % 4 == 0) printk("\n%p: ", (uint32_t)(ptr + i));
-        
-        printk("%08x ", ptr[i]);
-    }
-    printk("\n=======================\n");
+		for (int j = 0; j < 4; j++)
+		{
+			if (i + j < nb_words)
+				printk("%08x ", ptr[i + j]);
+			else
+				printk("         ");
+		}
+
+		printk(" |");
+		for (int j = 0; j < 16; j++)
+		{
+			if ((i * 4) + j < diff)
+			{
+				uint8_t c = ((uint8_t *)ptr)[(i * 4) + j];
+				if (c >= 32 && c <= 126)
+					printk("%c", c);
+				else
+					printk(".");
+			}
+		}
+		printk("|");
+	}
+	printk("\n==========================================\n");
 }
