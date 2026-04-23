@@ -1,0 +1,13 @@
+.objs/
+
+iso_root/
+*.bin
+*.o
+*.elf
+*.map
+*.d
+*.dSYM/
+*.log
+*.iso
+*.img
+*.vmdk
