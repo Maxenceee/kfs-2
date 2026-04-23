@@ -6,42 +6,101 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:22:10 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 16:02:26 by mgama            ###   ########.fr       */
+/*   Updated: 2026/04/23 16:29:07 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "io/print/print.h"
 #include "io/io.h"
-#include "io/ps2/PS2KeyAdvanced.h"
-#include "io/ps2/PS2KeyMap.h"
-
-PS2KeyMap g_keymap;
-static uint16_t g_current_modifiers = 0;
 
 char keyboard_buffer[80];
 uint8_t keyboard_buffer_index = 0;
 volatile uint8_t command_ready = 0;
+volatile uint8_t is_shift_pressed = 0;
+
+static const char qwerty_map[128] = {
+    0,  27, '1', '2', '3', '4', '5', '6', '7', '8',	/* 0x00 - 0x09 */
+  '9', '0', '-', '=', '\b',	/* Backspace */
+  '\t',			/* Tab */
+  'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n', /* Enter */
+    0,			/* 0x1D - Control */
+  'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', '`', 0, /* Left Shift */
+ '\\', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 0, /* Right Shift */
+  '*',
+    0,	/* Alt */
+  ' ',	/* Space bar */
+    0,	/* Caps lock */
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, /* F1 - F10 */
+    0,	/* Num lock */
+    0,	/* Scroll lock */
+    0,	/* Home key */
+    0,	/* Up arrow */
+    0,	/* Page up */
+  '-',
+    0,	/* Left arrow */
+    0,
+    0,	/* Right arrow */
+  '+',
+    0,	/* End key */
+    0,	/* Down arrow */
+    0,	/* Page down */
+    0,	/* Insert key */
+    0,	/* Delete key */
+    0, 0, 0,
+    0,	/* F11 key */
+    0,	/* F12 key */
+    0,	/* All others undefined */
+};
 
 void
 _irq_kbd_handler(void)
 {
-	uint8_t scancode = inb(0x60);
+    uint8_t scancode = inb(0x60);
 
-	uint8_t is_break = (scancode & 0x80);
-	uint8_t key = (scancode & 0x7F);
-
-	if (key == 0x2A || key == 0x36) {
-		if (is_break) g_current_modifiers &= ~PS2_SHIFT;
-		else g_current_modifiers |= PS2_SHIFT;
-		return; 
-	}
-	if (!is_break)
+    if (scancode & 0x80)
 	{
-		// printk("Scancode: 0x%02X key=0x%02X\n", scancode, key);
-		uint8_t ascii = PS2KeyMap_remapKeyByte(&g_keymap, scancode);
+        uint8_t released_code = scancode & 0x7F;
+        if (released_code == 0x2A || released_code == 0x36) is_shift_pressed = 0;
+        return;
+    }
 
-		if (ascii != 0) {
-			printk("%c", ascii);
-		}
-	}
+    if (scancode == 0x2A || scancode == 0x36)
+	{
+        is_shift_pressed = 1;
+        return;
+    }
+
+    char ascii = qwerty_map[scancode];
+
+    if (ascii != 0)
+	{
+        if (is_shift_pressed && ascii >= 'a' && ascii <= 'z')
+		{
+            ascii -= 32;
+        }
+
+        if (ascii == '\n')
+		{
+            keyboard_buffer[keyboard_buffer_index] = '\0'; // Termine la string
+            command_ready = 1;                             // Prévient le main
+            keyboard_buffer_index = 0;                     // Reset pour la suite
+            printk("\n");
+        } 
+        else if (ascii == '\b')
+		{
+            if (keyboard_buffer_index > 0)
+			{
+                keyboard_buffer_index--;
+                printk("\b \b");
+            }
+        } 
+        else
+		{
+            if (keyboard_buffer_index < 79)
+			{
+                keyboard_buffer[keyboard_buffer_index++] = ascii;
+                printk("%c", ascii);
+            }
+        }
+    }
 }
