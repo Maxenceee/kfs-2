@@ -1,42 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_width_bonus.c                             :+:      :+:    :+:   */
+/*   pkcalloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 19:57:03 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:03:49 by mgama            ###   ########.fr       */
+/*   Created: 2022/11/07 19:40:47 by mgama             #+#    #+#             */
+/*   Updated: 2026/04/23 13:29:42 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "_printk.h"
 #include "print.h"
 
-void	ft_print_width(int width, int minus, int has_zero, int *count)
+void	*pkcalloc(uint32_t count, uint32_t size)
 {
-	while (width - minus > 0)
-	{
-		if (has_zero)
-			ft_putchar('0');
-		else
-			ft_putchar(' ');
-		width -= 1;
-		(*count)++;
-	}
-}
+	void	*ptr;
 
-void	ft_print_max_width(int width, int max, int has_zero, int *count)
-{
-	if (max < width)
-		return ;
-	while (width - max > 0)
+	if (count == 0 || size == 0)
 	{
-		if (has_zero)
-			ft_putchar('0');
-		else
-			ft_putchar(' ');
-		width -= 1;
-		(*count)++;
+		count = 1;
+		size = 1;
 	}
+	uint32_t total;
+    if (__builtin_mul_overflow(count, size, &total))
+	{
+        return (NULL);
+	}
+	ptr = __printk_alloc(count * size);
+	if (ptr)
+		pkbzero(ptr, count * size);
+	return (ptr);
 }

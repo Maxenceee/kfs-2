@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup_bonus.c                                  :+:      :+:    :+:   */
+/*   pktolower_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 16:42:36 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:17:21 by mgama            ###   ########.fr       */
+/*   Created: 2022/11/07 13:51:16 by mgama             #+#    #+#             */
+/*   Updated: 2026/04/23 13:05:06 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "_printk.h"
 #include "print.h"
 
-char	*ft_strdup(const char *src)
+char	*pkstr_tolower(char *str)
 {
-	char	*str;
-	int		i;
+	uint32_t	i;
 
-	if (!src)
-		return (NULL);
-	i = ft_strlen(src);
-	str = __printk_alloc((i + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
-	ft_memcpy(str, src, i);
-	ft_memset(str + i, '\0', sizeof(char));
+	i = -1;
+	while (str[++i])
+		str[i] = pktolower(str[i]);
 	return (str);
+}
+
+int	pktolower(int num)
+{
+	if (num >= 65 && num <= 90)
+		num += 32;
+	return (num);
 }

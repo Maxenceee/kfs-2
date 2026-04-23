@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_base_bonus.c                            :+:      :+:    :+:   */
+/*   pkconvert_base_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,7 +13,7 @@
 #include "_printk.h"
 #include "print.h"
 
-static char	*ft_put_base(uint32_t ull_save, int base,
+static char	*pkput_base(uint32_t ull_save, int base,
 	char *rtn, int count)
 {
 	while (ull_save != 0)
@@ -28,7 +28,7 @@ static char	*ft_put_base(uint32_t ull_save, int base,
 	return (rtn);
 }
 
-char	*ft_convert_base(uint32_t ull, int base)
+char	*pkconvert_base(uint32_t ull, int base)
 {
 	char		*rtn;
 	uint32_t	ull_save;
@@ -38,7 +38,7 @@ char	*ft_convert_base(uint32_t ull, int base)
 	count = 0;
 	ull_save = ull;
 	if (ull == 0)
-		return (ft_strdup("0"));
+		return (pkstrdup("0"));
 	while (ull != 0)
 	{
 		ull /= base;
@@ -48,6 +48,6 @@ char	*ft_convert_base(uint32_t ull, int base)
 	if (!rtn)
 		return (NULL);
 	rtn[count] = '\0';
-	rtn = ft_put_base(ull_save, base, rtn, count);
+	rtn = pkput_base(ull_save, base, rtn, count);
 	return (rtn);
 }

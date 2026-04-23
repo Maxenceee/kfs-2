@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_int_bonus.c                               :+:      :+:    :+:   */
+/*   pkprint_int_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,45 +13,45 @@
 #include "_printk.h"
 #include "print.h"
 
-static void	ft_print_in_int_spaces(char *d_i, int save_i,
+static void	pkprint_in_int_spaces(char *d_i, int save_i,
 	int *count, t_flags flags)
 {
 	uint32_t	len;
 
-	len = ft_strlen(d_i);
+	len = pkstrlen(d_i);
 	if (save_i < 0 && flags.dot >= 0)
-		ft_putchar_c('-', count);
+		pkputchar_c('-', count);
 	else if (save_i >= 0 && flags.plus == 1)
-		ft_putchar_c('+', count);
+		pkputchar_c('+', count);
 	else if (save_i >= 0 && flags.blank == 1)
-		ft_putchar_c(' ', count);
+		pkputchar_c(' ', count);
 	if (flags.dot >= 0)
-		ft_print_width(flags.dot - 1, len - 1, 1, count);
-	ft_putstrprec(d_i, len, count);
+		pkprint_width(flags.dot - 1, len - 1, 1, count);
+	pkputstrprec(d_i, len, count);
 }
 
-static void	ft_print_int_spaces(char *d_i, int save_i,
+static void	pkprint_int_spaces(char *d_i, int save_i,
 	int *count, t_flags flags)
 {
 	uint32_t	len;
 
-	len = ft_strlen(d_i);
+	len = pkstrlen(d_i);
 	if (flags.minus == 1)
-		ft_print_in_int_spaces(d_i, save_i, count, flags);
+		pkprint_in_int_spaces(d_i, save_i, count, flags);
 	if (flags.dot >= 0 && (uint32_t)flags.dot < len)
 		flags.dot = len;
 	if (flags.dot >= 0)
 	{
 		flags.width -= flags.dot;
-		ft_print_width(flags.width, 0, 0, count);
+		pkprint_width(flags.width, 0, 0, count);
 	}
 	else
-		ft_print_width(flags.width, len, flags.zero, count);
+		pkprint_width(flags.width, len, flags.zero, count);
 	if (flags.minus == 0)
-		ft_print_in_int_spaces(d_i, save_i, count, flags);
+		pkprint_in_int_spaces(d_i, save_i, count, flags);
 }
 
-static void	ft_print_int_flags(t_flags *flags, long int *li, int *count)
+static void	pkprint_int_flags(t_flags *flags, long int *li, int *count)
 {
 	if (*li >= 0 && (flags->plus == 1 || flags->blank == 1))
 		flags->width--;
@@ -60,7 +60,7 @@ static void	ft_print_int_flags(t_flags *flags, long int *li, int *count)
 	if (*li < 0)
 	{
 		if (flags->zero == 1 && flags->dot == -1)
-			ft_putstrprec("-", 1, count);
+			pkputstrprec("-", 1, count);
 		(*li) *= -1;
 		flags->zero = 1;
 		flags->width--;
@@ -68,30 +68,30 @@ static void	ft_print_int_flags(t_flags *flags, long int *li, int *count)
 	else if (*li >= 0 && flags->plus == 1
 		&& flags->zero == 1 && flags->dot == -1)
 	{
-		ft_putstrprec("+", 1, count);
+		pkputstrprec("+", 1, count);
 		flags->plus = 0;
 	}
 	else if (*li >= 0 && flags->blank == 1
 		&& flags->zero == 1 && flags->dot == -1)
 	{
-		ft_putstrprec(" ", 1, count);
+		pkputstrprec(" ", 1, count);
 		flags->blank = 0;
 	}
 }
 
-void	ft_print_int(int i, int *count, t_flags flags)
+void	pkprint_int(int i, int *count, t_flags flags)
 {
 	char		*d_i;
 	long int	li;
 
 	li = i;
-	ft_print_int_flags(&flags, &li, count);
+	pkprint_int_flags(&flags, &li, count);
 	if (li == 0 && flags.dot == 0)
 		d_i = __printk_alloc(1 * sizeof(char));
 	else
-		d_i = ft_itoa(li);
+		d_i = pkitoa(li);
 	if (!d_i)
 		return ;
-	ft_print_int_spaces(d_i, i, count, flags);
+	pkprint_int_spaces(d_i, i, count, flags);
 	__printk_free(d_i);
 }

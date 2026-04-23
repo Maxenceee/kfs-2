@@ -1,39 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcat_bonus.c                                  :+:      :+:    :+:   */
+/*   pkprint_width_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/04 19:13:52 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:04:18 by mgama            ###   ########.fr       */
+/*   Created: 2022/11/19 19:57:03 by mgama             #+#    #+#             */
+/*   Updated: 2026/04/23 13:03:49 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "_printk.h"
 #include "print.h"
 
-char	*ft_strcpy(char *dest, char *src)
+void	pkprint_width(int width, int minus, int has_zero, int *count)
 {
-	uint32_t	i;
-
-	i = 0;
-	while (*src != '\0')
+	while (width - minus > 0)
 	{
-		dest[i] = *src;
-		src++;
-		i++;
+		if (has_zero)
+			pkputchar('0');
+		else
+			pkputchar(' ');
+		width -= 1;
+		(*count)++;
 	}
-	while (dest[i])
-	{
-		dest[i] = '\0';
-		i++;
-	}
-	return (dest);
 }
 
-char	*ft_strcat(char *dest, char *src)
+void	pkprint_max_width(int width, int max, int has_zero, int *count)
 {
-	ft_strcpy(dest + ft_strlen(dest), src);
-	return (dest);
+	if (max < width)
+		return ;
+	while (width - max > 0)
+	{
+		if (has_zero)
+			pkputchar('0');
+		else
+			pkputchar(' ');
+		width -= 1;
+		(*count)++;
+	}
 }

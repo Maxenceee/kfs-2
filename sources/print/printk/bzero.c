@@ -1,33 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_valids_bonus.c                                  :+:      :+:    :+:   */
+/*   pkbzero_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 18:24:43 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:05:23 by mgama            ###   ########.fr       */
+/*   Created: 2022/11/07 16:48:29 by mgama             #+#    #+#             */
+/*   Updated: 2026/04/23 13:09:34 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "_printk.h"
 #include "print.h"
 
-int	ft_is_valid_type(int c)
+void	*pkmemcpy(void *dst, const void *src, uint32_t n)
 {
-	return ((c == 'c') || (c == 's') || (c == 'd') || (c == 'i') || (c == 'f')
-		|| (c == 'u') || (c == 'x') || (c == 'X') || (c == 'p') || (c == '%'));
+	uint32_t	i;
+	void	*lst_dst;
+
+	if (n == 0 || dst == src)
+		return (dst);
+	i = 0;
+	lst_dst = dst;
+	while (i < n)
+	{
+		((char *)dst)[i] = ((char *)src)[i];
+		i++;
+	}
+	return (lst_dst);
 }
 
-int	ft_is_valid_flag(int c)
+void	*pkmemset(void *b, int c, uint32_t len)
 {
-	return ((c == '-') || (c == ' ') || (c == '0') || (c == '.') || (c == '*')
-		|| (c == '+') || (c == '#'));
+	uint32_t	i;
+
+	i = 0;
+	while (i < len)
+	{
+		((char *)b)[i] = (unsigned char)c;
+		i++;
+	}
+	return (b);
 }
 
-int	ft_min(int a, int b)
+void	pkbzero(void *s, uint32_t n)
 {
-	if (a > b)
-		return (b);
-	return (a);
+	pkmemset(s, '\0', n);
 }

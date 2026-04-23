@@ -1,49 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero_bonus.c                                   :+:      :+:    :+:   */
+/*   pkprint_char_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 16:48:29 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:09:34 by mgama            ###   ########.fr       */
+/*   Created: 2022/11/19 19:55:31 by mgama             #+#    #+#             */
+/*   Updated: 2026/04/23 12:51:08 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "_printk.h"
 #include "print.h"
 
-void	*ft_memcpy(void *dst, const void *src, uint32_t n)
+void	pkputchar(char c)
 {
-	uint32_t	i;
-	void	*lst_dst;
-
-	if (n == 0 || dst == src)
-		return (dst);
-	i = 0;
-	lst_dst = dst;
-	while (i < n)
-	{
-		((char *)dst)[i] = ((char *)src)[i];
-		i++;
-	}
-	return (lst_dst);
+	vga_put(c, VGA_FORE_WHITE | VGA_BACK_BLACK);
 }
 
-void	*ft_memset(void *b, int c, uint32_t len)
+void	pkputchar_c(char c, int *count)
 {
-	uint32_t	i;
-
-	i = 0;
-	while (i < len)
-	{
-		((char *)b)[i] = (unsigned char)c;
-		i++;
-	}
-	return (b);
+	vga_put(c, VGA_FORE_WHITE | VGA_BACK_BLACK);
+	(*count)++;
 }
 
-void	ft_bzero(void *s, uint32_t n)
+void	pkprint_char(char c, int *count, t_flags flags, int percent)
 {
-	ft_memset(s, '\0', n);
+	if (percent)
+		return ((void)pkputchar_c(c, count));
+	if (flags.minus == 1)
+		pkputchar_c(c, count);
+	pkprint_width(flags.width, 1, 0, count);
+	if (flags.minus == 0)
+		pkputchar_c(c, count);
 }

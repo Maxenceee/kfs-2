@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   pkprintf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,7 +13,7 @@
 #include "_printk.h"
 #include "print.h"
 
-static t_flags	ft_flags(void)
+static t_flags	pkflags(void)
 {
 	t_flags		flags;
 
@@ -29,27 +29,27 @@ static t_flags	ft_flags(void)
 	return (flags);
 }
 
-static void	ft_switch_types(int type, va_list *argp, int *count, t_flags flags)
+static void	pkswitch_types(int type, va_list *argp, int *count, t_flags flags)
 {
 	if (type == '%')
-		ft_print_char('%', count, flags, 1);
+		pkprint_char('%', count, flags, 1);
 	else if (type == 'c')
-		ft_print_char(va_arg(*argp, long), count, flags, 0);
+		pkprint_char(va_arg(*argp, long), count, flags, 0);
 	else if (type == 's')
-		ft_print_str(va_arg(*argp, char *), count, flags);
+		pkprint_str(va_arg(*argp, char *), count, flags);
 	else if (type == 'd' || type == 'i')
-		ft_print_int(va_arg(*argp, long), count, flags);
+		pkprint_int(va_arg(*argp, long), count, flags);
 	else if (type == 'u')
-		ft_print_u_int(va_arg(*argp, unsigned long), count, flags);
+		pkprint_u_int(va_arg(*argp, unsigned long), count, flags);
 	else if (type == 'x')
-		ft_print_hex(va_arg(*argp, uint32_t), 1, count, flags);
+		pkprint_hex(va_arg(*argp, uint32_t), 1, count, flags);
 	else if (type == 'X')
-		ft_print_hex(va_arg(*argp, uint32_t), 0, count, flags);
+		pkprint_hex(va_arg(*argp, uint32_t), 0, count, flags);
 	else if (type == 'p')
-		ft_print_pointer(va_arg(*argp, unsigned long int), count, flags);
+		pkprint_pointer(va_arg(*argp, unsigned long int), count, flags);
 }
 
-static void	ft_print_type(const char *fmt, va_list *argp, int *count)
+static void	pkprint_type(const char *fmt, va_list *argp, int *count)
 {
 	int		i;
 	t_flags	flags;
@@ -59,16 +59,16 @@ static void	ft_print_type(const char *fmt, va_list *argp, int *count)
 	{
 		if (fmt[i] != '%')
 		{
-			ft_putchar_c(fmt[i++], count);
+			pkputchar_c(fmt[i++], count);
 			continue ;
 		}
-		flags = ft_flags();
+		flags = pkflags();
 		i++;
-		ft_check_flags(fmt, argp, &flags, &i);
-		if (ft_is_valid_type(fmt[i]))
-			ft_switch_types(flags.type, argp, count, flags);
+		pkcheck_flags(fmt, argp, &flags, &i);
+		if (pkis_valid_type(fmt[i]))
+			pkswitch_types(flags.type, argp, count, flags);
 		else
-			ft_putchar_c(fmt[i], count);
+			pkputchar_c(fmt[i], count);
 		if (*count == -1)
 			return ;
 		i++;
@@ -82,7 +82,7 @@ int	printk(const char *fmt, ...)
 
 	count = 0;
 	va_start(listp, fmt);
-	ft_print_type(fmt, &listp, &count);
+	pkprint_type(fmt, &listp, &count);
 	va_end(listp);
 	return (count);
 }
@@ -94,7 +94,7 @@ int	cprintk(uint8_t __unused attrib, const char *fmt, ...)
 
 	count = 0;
 	va_start(listp, fmt);
-	ft_print_type(fmt, &listp, &count);
+	pkprint_type(fmt, &listp, &count);
 	va_end(listp);
 	return (count);
 }

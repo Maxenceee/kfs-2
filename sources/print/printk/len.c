@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   pklen_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 19:40:47 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:29:42 by mgama            ###   ########.fr       */
+/*   Created: 2022/09/05 21:23:53 by mgama             #+#    #+#             */
+/*   Updated: 2026/04/23 13:00:54 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_printk.h"
 #include "print.h"
 
-void	*ft_calloc(uint32_t count, uint32_t size)
+uint32_t	pkstrlen(const char *str)
 {
-	void	*ptr;
+	uint32_t	count;
 
-	if (count == 0 || size == 0)
+	count = 0;
+	while (*str != '\0')
 	{
-		count = 1;
-		size = 1;
+		str++;
+		count++;
 	}
-	uint32_t total;
-    if (__builtin_mul_overflow(count, size, &total))
-	{
-        return (NULL);
-	}
-	ptr = __printk_alloc(count * size);
-	if (ptr)
-		ft_bzero(ptr, count * size);
-	return (ptr);
+	return (count);
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_hex_bonus.c                               :+:      :+:    :+:   */
+/*   pkprint_hex_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,58 +13,58 @@
 #include "_printk.h"
 #include "print.h"
 
-static void	ft_print_hex_prefix(char *hexa, int lower,
+static void	pkprint_hex_prefix(char *hexa, int lower,
 	int *count, t_flags *flags)
 {
 	(void)hexa;
 	if (flags->hex == 1)
 	{
 		if (lower == 1)
-			ft_putstrprec("0x", 2, count);
+			pkputstrprec("0x", 2, count);
 		else
-			ft_putstrprec("0X", 2, count);
+			pkputstrprec("0X", 2, count);
 		flags->width -= 2;
 		flags->hex = 0;
 	}
 }
 
-static void	ft_print_in_hex_spaces(char *hexa, int lower,
+static void	pkprint_in_hex_spaces(char *hexa, int lower,
 	int *count, t_flags flags)
 {
 	uint32_t	len;
 
-	len = ft_strlen(hexa);
-	ft_print_hex_prefix(hexa, lower, count, &flags);
+	len = pkstrlen(hexa);
+	pkprint_hex_prefix(hexa, lower, count, &flags);
 	if (flags.dot >= 0)
-		ft_print_width(flags.dot - 1, len - 1, 1, count);
-	ft_putstrprec(hexa, len, count);
+		pkprint_width(flags.dot - 1, len - 1, 1, count);
+	pkputstrprec(hexa, len, count);
 }
 
-static void	ft_print_hex_spaces(char *hexa, int lower,
+static void	pkprint_hex_spaces(char *hexa, int lower,
 	int *count, t_flags flags)
 {
 	uint32_t	len;
 
-	len = ft_strlen(hexa);
+	len = pkstrlen(hexa);
 	if (flags.minus == 1)
-		ft_print_in_hex_spaces(hexa, lower, count, flags);
+		pkprint_in_hex_spaces(hexa, lower, count, flags);
 	if (flags.zero == 1 && flags.dot == -1)
-		ft_print_hex_prefix(hexa, lower, count, &flags);
+		pkprint_hex_prefix(hexa, lower, count, &flags);
 	if (flags.dot >= 0 && (uint32_t)flags.dot < len)
 		flags.dot = len;
 	if (flags.dot >= 0)
 	{
 		flags.width -= flags.dot;
-		ft_print_width(flags.width, (2 * flags.hex), 0, count);
+		pkprint_width(flags.width, (2 * flags.hex), 0, count);
 	}
 	else
-		ft_print_width(flags.width,
+		pkprint_width(flags.width,
 			len + (2 * flags.hex), flags.zero, count);
 	if (flags.minus == 0)
-		ft_print_in_hex_spaces(hexa, lower, count, flags);
+		pkprint_in_hex_spaces(hexa, lower, count, flags);
 }
 
-void	ft_print_hex(uint32_t ui, int lower, int *count, t_flags flags)
+void	pkprint_hex(uint32_t ui, int lower, int *count, t_flags flags)
 {
 	char	*hexa;
 
@@ -72,16 +72,16 @@ void	ft_print_hex(uint32_t ui, int lower, int *count, t_flags flags)
 			+ ui);
 	if (flags.dot == 0 && ui == 0)
 	{
-		ft_print_width(flags.width, 0, 0, count);
+		pkprint_width(flags.width, 0, 0, count);
 		return ;
 	}
 	if (ui == 0)
 		flags.hex = 0;
-	hexa = ft_convert_base((uint32_t)ui, 16);
+	hexa = pkconvert_base((uint32_t)ui, 16);
 	if (!hexa)
 		return ;
 	if (lower == 1)
-		hexa = ft_str_tolower(hexa);
-	ft_print_hex_spaces(hexa, lower, count, flags);
+		hexa = pkstr_tolower(hexa);
+	pkprint_hex_spaces(hexa, lower, count, flags);
 	__printk_free(hexa);
 }

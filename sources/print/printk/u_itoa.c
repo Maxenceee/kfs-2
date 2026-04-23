@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_u_itoa.c                                        :+:      :+:    :+:   */
+/*   pku_itoa.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -28,10 +28,10 @@ static int	get_num_ulen(unsigned long num)
 	return (count);
 }
 
-static char	*ft_gen(char *rtn, unsigned long nbr, int len)
+static char	*pkgen(char *rtn, unsigned long nbr, int len)
 {
 	if (nbr == 0)
-		return (ft_strdup("0"));
+		return (pkstrdup("0"));
 	rtn = __printk_alloc(sizeof(char) * (len + 1));
 	if (!rtn)
 		return (NULL);
@@ -45,12 +45,12 @@ static char	*ft_gen(char *rtn, unsigned long nbr, int len)
 	return (rtn);
 }
 
-char	*ft_u_itoa(uint32_t n)
+char	*pku_itoa(uint32_t n)
 {
 	int		len;
 	long	nbr;
 
 	nbr = n;
 	len = get_num_ulen(nbr);
-	return (ft_gen(NULL, nbr, len));
+	return (pkgen(NULL, nbr, len));
 }
