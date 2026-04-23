@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 16:23:35 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 14:05:16 by mgama            ###   ########.fr       */
+/*   Updated: 2026/04/23 14:33:55 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ ksetup(void)
 {
 	vga_init();
 
-	ksleep(500);
+	ksleep(1500);
 
 	disable_cursor();
 	vga_clear_screen();
 	print_logo();
 
-	ksleep(1000);
+	ksleep(2500);
 	vga_clear_screen();
 	enable_cursor(14, 15);
 }
@@ -75,6 +75,8 @@ kmain(void)
 	ksetup();
 
 	printk("Welcome to KFS%d!\n", 2);
+	
+	ksleep(1500);
 
 	_stack_grow_1();
 
