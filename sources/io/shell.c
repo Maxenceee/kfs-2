@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 15:13:27 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 16:30:08 by mgama            ###   ########.fr       */
+/*   Updated: 2026/04/23 16:32:18 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ kernel_shell(void)
 		{
 			if (ft_strcmp(keyboard_buffer, "help") == 0)
 			{
-				printk("Commands: help, clear, reboot, shutdown\n");
+				printk("Commands: help, clear, reboot, shutdown, halt\n");
 			} 
 			else if (ft_strcmp(keyboard_buffer, "clear") == 0)
 			{
@@ -51,11 +51,15 @@ kernel_shell(void)
 			}
 			else if (ft_strcmp(keyboard_buffer, "reboot") == 0)
 			{
-				reboot();
+				kreboot();
 			}
 			else if (ft_strcmp(keyboard_buffer, "shutdown") == 0)
 			{
-				shutdown();
+				kshutdown();
+			}
+			else if (ft_strcmp(keyboard_buffer, "dump") == 0)
+			{
+				kstackdump();
 			}
 			else
 			{

@@ -6,14 +6,14 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 16:24:19 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 16:27:49 by mgama            ###   ########.fr       */
+/*   Updated: 2026/04/23 16:31:04 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SYS_H
 #define SYS_H
 
-void	reboot(void);
-void	shutdown(void);
+void	kreboot(void);
+void	kshutdown(void);
 
 #endif /* SYS_H */
