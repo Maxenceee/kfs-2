@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 15:13:27 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 16:32:18 by mgama            ###   ########.fr       */
+/*   Updated: 2026/05/17 18:36:34 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,30 @@ ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
+void	print_help(void);
+
+struct command
+{
+	char *name;
+	void (*func)(void);
+} avail_commands[] = {
+	{"help", &print_help},
+	{"clear", &vga_clear_screen},
+	{"reboot", &kreboot},
+	{"shutdown", &kshutdown},
+	{"dump", &kstackdump},
+};
+
+void
+print_help(void)
+{
+	printk("Commands:\n");
+	for (size_t i = 0; i < sizeof(avail_commands) / sizeof(avail_commands[0]); i++)
+	{
+		printk("- %s\n", avail_commands[i].name);
+	}
+}
+
 void __dead2
 kernel_shell(void)
 {
@@ -41,27 +65,17 @@ kernel_shell(void)
 	{
 		if (command_ready)
 		{
-			if (ft_strcmp(keyboard_buffer, "help") == 0)
+			int found_command = 0;
+			for (size_t i = 0; i < sizeof(avail_commands) / sizeof(avail_commands[0]); i++)
 			{
-				printk("Commands: help, clear, reboot, shutdown, halt\n");
-			} 
-			else if (ft_strcmp(keyboard_buffer, "clear") == 0)
-			{
-				vga_clear_screen();
+				if (ft_strcmp(keyboard_buffer, avail_commands[i].name) == 0)
+				{
+					avail_commands[i].func();
+					found_command = 1;
+					break;
+				}
 			}
-			else if (ft_strcmp(keyboard_buffer, "reboot") == 0)
-			{
-				kreboot();
-			}
-			else if (ft_strcmp(keyboard_buffer, "shutdown") == 0)
-			{
-				kshutdown();
-			}
-			else if (ft_strcmp(keyboard_buffer, "dump") == 0)
-			{
-				kstackdump();
-			}
-			else
+			if (!found_command)
 			{
 				printk("Unknown command: %s\n", keyboard_buffer);
 			}

@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:25:29 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:25:09 by mgama            ###   ########.fr       */
+/*   Updated: 2026/05/17 18:33:11 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef uint32_t		  size_t;
 #define INT8_MAX 127
 
 #define SIZE_MAX UINT32_MAX
+
+#define NULL ((void *)0)
 
 #ifndef __dead2
 #if defined(__GNUC__) || defined(__clang__)
