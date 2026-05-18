@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:04:55 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/18 14:41:58 by mgama            ###   ########.fr       */
+/*   Updated: 2026/05/18 14:57:03 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,11 +140,6 @@ _irq_kbd_handler(void)
     }
 	if (ascii != 0)
 	{
-		if (irq_kbd_is_shift_pressed && ascii >= 'a' && ascii <= 'z')
-		{
-			ascii -= 32;
-		}
-
 		if (ascii == '\n')
 		{
 			irq_kbd_buffer[irq_kbd_buffer_index] = '\0';
