@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 13:53:45 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/18 14:47:30 by mgama            ###   ########.fr       */
+/*   Updated: 2026/05/18 16:15:35 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,6 @@ EXPORT_SHCMD(shutdown)
 
 EXPORT_SHCMD(dump)
 {
-	kstackdump();
-}
-
-EXPORT_SHCMD(fdump)
-{
-	uint16_t buffer[16];
-	for (int i = 0; i < 16; i++)
-		buffer[i] = i;
-
-	buffer[0] = 42;
-	printk("Buffer[0] after stack growth: %d\n", buffer[0]);
 	kstackdump();
 }
 

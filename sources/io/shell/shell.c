@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:04:23 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/18 14:48:30 by mgama            ###   ########.fr       */
+/*   Updated: 2026/05/18 16:04:51 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ struct command avail_commands[] = {
 
 const size_t avail_commands_count = sizeof(avail_commands) / sizeof(avail_commands[0]);
 
-uint8_t
+size_t
 find_first(const char *str, char c)
 {
 	for (size_t i = 0; str[i] != '\0'; i++)
@@ -32,7 +32,7 @@ find_first(const char *str, char c)
 		if (str[i] == c)
 			return (i);
 	}
-	return (INT8_MAX);
+	return (SIZE_MAX);
 }
 
 void __dead2
@@ -44,14 +44,14 @@ kernel_shell(void)
 
 	while(1)
 	{
-		uint8_t prompt_len = kbd_read(shell_buffer, sizeof(shell_buffer));
+		size_t prompt_len = kbd_read(shell_buffer, sizeof(shell_buffer));
 		if (prompt_len == 0)
 		{
 			printk(SHPROMPT);
 			continue;
 		}
 
-		uint8_t first_word = find_first(shell_buffer, ' ');
+		size_t first_word = find_first(shell_buffer, ' ');
 		char command_name[first_word];
 		kmemcpy(command_name, shell_buffer, first_word);
 		command_name[first_word] = '\0';
