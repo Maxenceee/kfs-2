@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mapping.h                                          :+:      :+:    :+:   */
+/*   io.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 17:10:12 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/20 17:10:38 by mgama            ###   ########.fr       */
+/*   Created: 2026/05/18 11:04:28 by mgama             #+#    #+#             */
+/*   Updated: 2026/05/18 11:04:29 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAPPING_H
-#define MAPPING_H
+#ifndef IO_H
+#define IO_H
 
 #include <types.h>
 
@@ -23,4 +23,4 @@ uint8_t		inb(uint16_t port);
 uint16_t	inw(uint16_t port);
 uint32_t	inl(uint16_t port);
 
-#endif /* MAPPING_H */
+#endif /* IO_H */

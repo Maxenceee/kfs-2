@@ -24,10 +24,3 @@ int	pkis_valid_flag(int c)
 	return ((c == '-') || (c == ' ') || (c == '0') || (c == '.') || (c == '*')
 		|| (c == '+') || (c == '#'));
 }
-
-int	pkmin(int a, int b)
-{
-	if (a > b)
-		return (b);
-	return (a);
-}

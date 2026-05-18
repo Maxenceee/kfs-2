@@ -29,6 +29,6 @@ void	*pkcalloc(uint32_t count, uint32_t size)
 	}
 	ptr = __printk_alloc(count * size);
 	if (ptr)
-		pkbzero(ptr, count * size);
+		kbzero(ptr, count * size);
 	return (ptr);
 }

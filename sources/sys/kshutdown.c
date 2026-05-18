@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shutdown.c                                         :+:      :+:    :+:   */
+/*   kshutdown.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/23 16:26:29 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 16:35:14 by mgama            ###   ########.fr       */
+/*   Created: 2026/05/18 11:03:50 by mgama             #+#    #+#             */
+/*   Updated: 2026/05/18 12:15:16 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,16 @@
 void
 kshutdown(void)
 {
-	printk("The kernel will shut down in 1 second...\n");
-	ksleep(1000);
+	uint8_t timer = 3;
+	while (timer > 0)
+	{
+		printk("The kernel will shut down in %ds...\r", timer);
+		ksleep(1000);
+		timer--;
+	}
+	printk("\nShutting down...\n");
 
-	// This command works on QEMU if you launched it with the correct arguments
+	// This command works on QEMU and Bochs to trigger a shutdown.
 	// It sends 0x2000 (success value) to port 0x604 (QEMU/Bochs shutdown port)
 	outw(0x604, 0x2000);
 

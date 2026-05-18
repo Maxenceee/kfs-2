@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pkbzero_bonus.c                                   :+:      :+:    :+:   */
+/*   kbzero_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_printk.h"
-#include "io/print/print.h"
+#include "std/std.h"
 
-void	*pkmemcpy(void *dst, const void *src, uint32_t n)
+void	*kmemcpy(void *dst, const void *src, uint32_t n)
 {
 	uint32_t	i;
 	void	*lst_dst;
@@ -30,7 +29,7 @@ void	*pkmemcpy(void *dst, const void *src, uint32_t n)
 	return (lst_dst);
 }
 
-void	*pkmemset(void *b, int c, uint32_t len)
+void	*kmemset(void *b, int c, uint32_t len)
 {
 	uint32_t	i;
 
@@ -43,7 +42,7 @@ void	*pkmemset(void *b, int c, uint32_t len)
 	return (b);
 }
 
-void	pkbzero(void *s, uint32_t n)
+void	kbzero(void *s, uint32_t n)
 {
-	pkmemset(s, '\0', n);
+	kmemset(s, '\0', n);
 }

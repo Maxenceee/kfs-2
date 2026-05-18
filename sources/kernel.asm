@@ -1,4 +1,4 @@
-; kernel.asm
+; kernel.asm - Entry point for the kernel in x86 protected mode
 section .multiboot
 	align 4
 	dd 0x1BADB002              ; Magic number for Multiboot
@@ -34,5 +34,5 @@ hang:
 section .bss
 global stack_space
 align 16
-resb 8192                   ; RReserve 8 Ko for the stack
+resb 8192                   ; Reserve 8 Ko for the stack
 stack_space:

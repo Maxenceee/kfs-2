@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pkstrdup_bonus.c                                  :+:      :+:    :+:   */
+/*   kreboot.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 16:42:36 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:17:21 by mgama            ###   ########.fr       */
+/*   Created: 2026/05/18 11:03:57 by mgama             #+#    #+#             */
+/*   Updated: 2026/05/18 12:05:03 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_printk.h"
 #include "io/print/print.h"
+#include "timer/delay.h"
 
-char	*pkstrdup(const char *src)
+void
+kreboot(void)
 {
-	char	*str;
-	int		i;
+	uint8_t timer = 3;
+	while (timer > 0)
+	{
+		printk("The kernel will reboot in %ds...\r", timer);
+		ksleep(1000);
+		timer--;
+	}
+	printk("\nRebooting...\n");
 
-	if (!src)
-		return (NULL);
-	i = kstrlen(src);
-	str = __printk_alloc((i + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
-	kmemcpy(str, src, i);
-	kmemset(str + i, '\0', sizeof(char));
-	return (str);
+	// This is a common method to trigger a reboot by causing a triple fault, which forces the CPU to reset.
+	__asm__ volatile (
+        "lidt (%0) \n"
+        "int $3"
+        : : "r" (0)
+    );
 }

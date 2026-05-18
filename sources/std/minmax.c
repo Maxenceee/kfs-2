@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pklen_bonus.c                                     :+:      :+:    :+:   */
+/*   minmax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/05 21:23:53 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:00:54 by mgama            ###   ########.fr       */
+/*   Created: 2026/05/18 11:21:26 by mgama             #+#    #+#             */
+/*   Updated: 2026/05/18 11:22:46 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "io/print/print.h"
+#include "std/std.h"
 
-uint32_t	pkstrlen(const char *str)
+int	kmin(int a, int b)
 {
-	uint32_t	count;
+	if (a > b)
+		return (b);
+	return (a);
+}
 
-	count = 0;
-	while (*str != '\0')
-	{
-		str++;
-		count++;
-	}
-	return (count);
+int	kmax(int a, int b)
+{
+	if (a < b)
+		return (b);
+	return (a);
 }

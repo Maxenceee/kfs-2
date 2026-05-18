@@ -18,7 +18,7 @@ static void	pkprint_in_pointer_spaces(char *pointer, uint32_t or,
 {
 	uint32_t	len;
 
-	len = pkstrlen(pointer);
+	len = kstrlen(pointer);
 	if (or)
 		pkputstrprec("0x", 2, count, flags.attrib);
 	if (flags.dot >= 0)
@@ -47,8 +47,8 @@ void	pkprint_pointer(uint32_t ull, int *count, t_flags flags)
 		pointer = pkstrdup("(nil)");
 	if (!pointer)
 		return ;
-	len = pkstrlen(pointer);
-	pointer = pkstr_tolower(pointer);
+	len = kstrlen(pointer);
+	pointer = kstr_tolower(pointer);
 	if ((uint32_t)flags.dot < len)
 		flags.dot = len;
 	if (flags.minus == 1)

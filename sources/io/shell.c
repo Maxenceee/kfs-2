@@ -5,34 +5,34 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/23 15:13:27 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/17 18:36:34 by mgama            ###   ########.fr       */
+/*   Created: 2026/05/18 11:04:23 by mgama             #+#    #+#             */
+/*   Updated: 2026/05/18 12:14:04 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
 #include "io/print/print.h"
 #include "sys/sys.h"
+#include "std/std.h"
 #include "io/screen/screen.h"
 
-extern char keyboard_buffer[80];
-extern uint8_t keyboard_buffer_index;
-extern volatile uint8_t command_ready;
+uint8_t	kbd_read(char *buffer, uint8_t max_length);
 
-int
-ft_strcmp(char *s1, char *s2)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-	{
-		i++;
-	}
-	return (s1[i] - s2[i]);
-}
+#define SHPROMPT "OS Shell> "
 
 void	print_help(void);
+
+void
+_stack_grow_fake(void)
+{
+	uint16_t buffer[16];
+	for (int i = 0; i < 16; i++)
+		buffer[i] = i;
+
+	buffer[0] = 42;
+	printk("Buffer[0] after stack growth: %d\n", buffer[0]);
+	kstackdump();
+}
 
 struct command
 {
@@ -44,46 +44,54 @@ struct command
 	{"reboot", &kreboot},
 	{"shutdown", &kshutdown},
 	{"dump", &kstackdump},
+	{"fdump", &_stack_grow_fake},
 };
 
 void
 print_help(void)
 {
-	printk("Commands:\n");
+	printk("Available commands:\n");
 	for (size_t i = 0; i < sizeof(avail_commands) / sizeof(avail_commands[0]); i++)
 	{
-		printk("- %s\n", avail_commands[i].name);
+		printk("  - %s\n", avail_commands[i].name);
 	}
 }
 
 void __dead2
 kernel_shell(void)
 {
-	printk("OS Shell> ");
+	printk(SHPROMPT);
+
+	char shell_buffer[80];
 
 	while(1)
 	{
-		if (command_ready)
+		uint8_t prompt_len = kbd_read(shell_buffer, sizeof(shell_buffer));
+		if (prompt_len == 0)
 		{
-			int found_command = 0;
-			for (size_t i = 0; i < sizeof(avail_commands) / sizeof(avail_commands[0]); i++)
-			{
-				if (ft_strcmp(keyboard_buffer, avail_commands[i].name) == 0)
-				{
-					avail_commands[i].func();
-					found_command = 1;
-					break;
-				}
-			}
-			if (!found_command)
-			{
-				printk("Unknown command: %s\n", keyboard_buffer);
-			}
-
-			command_ready = 0;
-			printk("OS Shell> ");
+			printk(SHPROMPT);
+			continue;
 		}
-		
-		__asm__ volatile("hlt"); 
+
+		int found_command = 0;
+		for (size_t i = 0; i < sizeof(avail_commands) / sizeof(avail_commands[0]); i++)
+		{
+			if (kstrcmp(shell_buffer, avail_commands[i].name) == 0)
+			{
+				void (*command_func)(void) = avail_commands[i].func;
+				if (command_func)
+				{
+					command_func();
+				}
+				found_command = 1;
+				break;
+			}
+		}
+		if (!found_command)
+		{
+			printk("Unknown command: %s\n", shell_buffer);
+		}
+
+		printk(SHPROMPT);
 	}
 }

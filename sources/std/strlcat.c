@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_printk.h"
-#include "io/print/print.h"
+#include "std/std.h"
 
-int	pkstrlcat(char *dest, char *src, uint32_t size)
+int	kstrlcat(char *dest, char *src, uint32_t size)
 {
 	char	*d;
 	char	*s;
@@ -28,7 +27,7 @@ int	pkstrlcat(char *dest, char *src, uint32_t size)
 	dlen = d - dest;
 	n = size - dlen;
 	if (n == 0)
-		return (dlen + (int)pkstrlen(s));
+		return (dlen + (int)kstrlen(s));
 	while (*s != '\0')
 	{
 		if (n != 1)

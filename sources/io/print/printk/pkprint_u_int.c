@@ -17,7 +17,7 @@ static void	pkprint_in_u_int_spaces(char *unsi_int, int *count, t_flags flags)
 {
 	uint32_t	len;
 
-	len = pkstrlen(unsi_int);
+	len = kstrlen(unsi_int);
 	if (flags.dot >= 0)
 		pkprint_width(flags.dot - 1, len - 1, 1, count, flags.attrib);
 	pkputstrprec(unsi_int, len, count, flags.attrib);
@@ -27,7 +27,7 @@ static void	pkprint_u_int_spaces(char *unsi_int, int *count, t_flags flags)
 {
 	uint32_t	len;
 
-	len = pkstrlen(unsi_int);
+	len = kstrlen(unsi_int);
 	if (flags.minus == 1)
 		pkprint_in_u_int_spaces(unsi_int, count, flags);
 	if (flags.dot >= 0 && (uint32_t)flags.dot < len)

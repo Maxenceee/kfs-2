@@ -1,3 +1,5 @@
+; io.asm - I/O port access functions for x86 architecture
+; This code provides low-level functions to perform input and output operations on I/O ports.
 [BITS 32]
 
 global outb

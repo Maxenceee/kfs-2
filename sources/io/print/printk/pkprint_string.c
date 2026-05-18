@@ -27,7 +27,7 @@ static void	pkprint_spaces(char *str, int *count, t_flags flags)
 {
 	uint32_t	len;
 
-	len = pkstrlen(str);
+	len = kstrlen(str);
 	if (flags.dot >= 0)
 	{
 		pkprint_width(flags.dot, len, 0, count, flags.attrib);
@@ -52,7 +52,7 @@ void	pkprint_str(char *s, int *count, t_flags flags)
 			return (pkprint_width(flags.width, 0, 0, count, flags.attrib));
 		s = "(null)";
 	}
-	len = pkstrlen(s);
+	len = kstrlen(s);
 	if (flags.dot >= 0 && (uint32_t)flags.dot > len)
 		flags.dot = len;
 	if (flags.minus == 1)

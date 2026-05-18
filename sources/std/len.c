@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pkisdigit_bonus.c                                 :+:      :+:    :+:   */
+/*   pklen_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 13:44:16 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 12:47:07 by mgama            ###   ########.fr       */
+/*   Created: 2022/09/05 21:23:53 by mgama             #+#    #+#             */
+/*   Updated: 2026/04/23 13:00:54 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "io/print/print.h"
+#include "std/std.h"
 
-int	pkisdigit(int num)
+uint32_t	kstrlen(const char *str)
 {
-	return (num >= 48 && num <= 57);
+	uint32_t	count;
+
+	count = 0;
+	while (*str != '\0')
+	{
+		str++;
+		count++;
+	}
+	return (count);
 }

@@ -1,39 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pkstrcat_bonus.c                                  :+:      :+:    :+:   */
+/*   ktolower_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/04 19:13:52 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:04:18 by mgama            ###   ########.fr       */
+/*   Created: 2022/11/07 13:51:16 by mgama             #+#    #+#             */
+/*   Updated: 2026/04/23 13:05:06 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_printk.h"
-#include "io/print/print.h"
+#include "std/std.h"
 
-char	*pkstrcpy(char *dest, char *src)
+char	*kstr_tolower(char *str)
 {
 	uint32_t	i;
 
-	i = 0;
-	while (*src != '\0')
-	{
-		dest[i] = *src;
-		src++;
-		i++;
-	}
-	while (dest[i])
-	{
-		dest[i] = '\0';
-		i++;
-	}
-	return (dest);
+	i = -1;
+	while (str[++i])
+		str[i] = ktolower(str[i]);
+	return (str);
 }
 
-char	*pkstrcat(char *dest, char *src)
+int	ktolower(int num)
 {
-	pkstrcpy(dest + pkstrlen(dest), src);
-	return (dest);
+	if (num >= 65 && num <= 90)
+		num += 32;
+	return (num);
 }

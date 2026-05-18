@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pkstrdup_bonus.c                                  :+:      :+:    :+:   */
+/*   pkisdigit_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 16:42:36 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:17:21 by mgama            ###   ########.fr       */
+/*   Created: 2022/11/07 13:44:16 by mgama             #+#    #+#             */
+/*   Updated: 2026/04/23 12:47:07 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_printk.h"
-#include "io/print/print.h"
+#include "std/std.h"
 
-char	*pkstrdup(const char *src)
+int	kisdigit(int num)
 {
-	char	*str;
-	int		i;
-
-	if (!src)
-		return (NULL);
-	i = kstrlen(src);
-	str = __printk_alloc((i + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
-	kmemcpy(str, src, i);
-	kmemset(str + i, '\0', sizeof(char));
-	return (str);
+	return (num >= 48 && num <= 57);
 }

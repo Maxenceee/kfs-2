@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reboot.c                                           :+:      :+:    :+:   */
+/*   kstrcat_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/23 16:23:57 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 16:35:19 by mgama            ###   ########.fr       */
+/*   Created: 2022/09/04 19:13:52 by mgama             #+#    #+#             */
+/*   Updated: 2026/04/23 13:04:18 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "io/print/print.h"
-#include "timer/delay.h"
+#include "std/std.h"
 
-void
-kreboot(void)
+char	*kstrcpy(char *dest, char *src)
 {
-	printk("The kernel will reboot in 1 second...\n");
-	ksleep(1000);
+	uint32_t	i;
 
-	// This is a common method to trigger a reboot by causing a triple fault, which forces the CPU to reset.
-	__asm__ volatile (
-        "lidt (%0) \n"
-        "int $3"
-        : : "r" (0)
-    );
+	i = 0;
+	while (*src != '\0')
+	{
+		dest[i] = *src;
+		src++;
+		i++;
+	}
+	while (dest[i])
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
+}
+
+char	*kstrcat(char *dest, char *src)
+{
+	kstrcpy(dest + kstrlen(dest), src);
+	return (dest);
 }

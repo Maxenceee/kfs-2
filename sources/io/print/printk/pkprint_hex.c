@@ -33,7 +33,7 @@ static void	pkprint_in_hex_spaces(char *hexa, int lower,
 {
 	uint32_t	len;
 
-	len = pkstrlen(hexa);
+	len = kstrlen(hexa);
 	pkprint_hex_prefix(hexa, lower, count, &flags);
 	if (flags.dot >= 0)
 		pkprint_width(flags.dot - 1, len - 1, 1, count, flags.attrib);
@@ -45,7 +45,7 @@ static void	pkprint_hex_spaces(char *hexa, int lower,
 {
 	uint32_t	len;
 
-	len = pkstrlen(hexa);
+	len = kstrlen(hexa);
 	if (flags.minus == 1)
 		pkprint_in_hex_spaces(hexa, lower, count, flags);
 	if (flags.zero == 1 && flags.dot == -1)
@@ -81,7 +81,7 @@ void	pkprint_hex(uint32_t ui, int lower, int *count, t_flags flags)
 	if (!hexa)
 		return ;
 	if (lower == 1)
-		hexa = pkstr_tolower(hexa);
+		hexa = kstr_tolower(hexa);
 	pkprint_hex_spaces(hexa, lower, count, flags);
 	__printk_free(hexa);
 }

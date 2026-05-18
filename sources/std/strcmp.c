@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pktolower_bonus.c                                 :+:      :+:    :+:   */
+/*   strcmp.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 13:51:16 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:05:06 by mgama            ###   ########.fr       */
+/*   Created: 2026/05/18 11:59:31 by mgama             #+#    #+#             */
+/*   Updated: 2026/05/18 11:59:38 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_printk.h"
-#include "io/print/print.h"
-
-char	*pkstr_tolower(char *str)
+int	kstrcmp(const char *s1, const char *s2)
 {
-	uint32_t	i;
+	unsigned int	i;
 
-	i = -1;
-	while (str[++i])
-		str[i] = pktolower(str[i]);
-	return (str);
-}
-
-int	pktolower(int num)
-{
-	if (num >= 65 && num <= 90)
-		num += 32;
-	return (num);
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+	{
+		i++;
+	}
+	return (s1[i] - s2[i]);
 }

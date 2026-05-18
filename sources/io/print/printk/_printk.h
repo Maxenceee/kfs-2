@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 12:48:27 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/17 18:33:06 by mgama            ###   ########.fr       */
+/*   Updated: 2026/05/18 11:26:16 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef __builtin_va_list va_list;
 
 #include "io/screen/screen.h"
 #include "types.h"
+#include "std/std.h"
 
 void*	__printk_alloc(uint32_t size);
 void	__printk_free(void *ptr);
@@ -60,9 +61,6 @@ void	pkprint_int(int i, int *count, t_flags flags);
 /* print_u_int */
 void	pkprint_u_int(uint32_t unsi, int *count, t_flags flags);
 
-/* print_float */
-void	pkprint_float(double i, int *count, t_flags flags);
-
 /* print_hex */
 void	pkprint_hex(uint32_t ui, int lower,
 			int *count, t_flags flags);
@@ -70,12 +68,6 @@ void	pkprint_hex(uint32_t ui, int lower,
 /* print_pointer */
 void	pkprint_pointer(uint32_t ull, int *count,
 			t_flags flags);
-
-/* strlen */
-uint32_t	pkstrlen(const char *str);
-
-/* isdigit */
-int		pkisdigit(int num);
 
 /* is_valid */
 int		pkis_valid_type(int c);
@@ -94,30 +86,11 @@ char	*pku_itoa(uint32_t n);
 /* strdup */
 char	*pkstrdup(const char *src);
 
-/* strlcat */
-int		pkstrlcat(char *dest, char *src, uint32_t size);
-
-/* strcat */
-char	*pkstrcat(char *dest, char *src);
-
-/* tolower */
-char	*pkstr_tolower(char *str);
-int		pktolower(int num);
-
 /* convert base */
 char	*pkconvert_base(uint32_t ull, int base);
 
 /* pkcalloc */
 void	*pkcalloc(uint32_t count, uint32_t size);
-
-/* mem */
-void	*pkmemcpy(void *dst, const void *src, uint32_t n);
-void	*pkmemset(void *b, int c, uint32_t len);
-
-/* pkbzero */
-void	pkbzero(void *s, uint32_t n);
-
-int		pkmin(int a, int b);
 
 void	pkcheck_flags(const char *fmt, va_list *argp,
 			t_flags *flags, int *idx);

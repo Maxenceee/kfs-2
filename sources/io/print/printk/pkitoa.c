@@ -27,7 +27,7 @@ static void	pkstrrev(char *str)
 	uint32_t	i;
 	char	tmp;
 
-	length = pkstrlen(str);
+	length = kstrlen(str);
 	i = 0;
 	while (i < length / 2)
 	{

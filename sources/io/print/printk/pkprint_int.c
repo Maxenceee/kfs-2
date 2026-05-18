@@ -18,7 +18,7 @@ static void	pkprint_in_int_spaces(char *d_i, int save_i,
 {
 	uint32_t	len;
 
-	len = pkstrlen(d_i);
+	len = kstrlen(d_i);
 	if (save_i < 0 && flags.dot >= 0)
 		pkputchar_c('-', count, flags.attrib);
 	else if (save_i >= 0 && flags.plus == 1)
@@ -35,7 +35,7 @@ static void	pkprint_int_spaces(char *d_i, int save_i,
 {
 	uint32_t	len;
 
-	len = pkstrlen(d_i);
+	len = kstrlen(d_i);
 	if (flags.minus == 1)
 		pkprint_in_int_spaces(d_i, save_i, count, flags);
 	if (flags.dot >= 0 && (uint32_t)flags.dot < len)

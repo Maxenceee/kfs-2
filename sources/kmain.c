@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 16:23:35 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 15:54:43 by mgama            ###   ########.fr       */
+/*   Created: 2026/05/18 10:42:57 by mgama             #+#    #+#             */
+/*   Updated: 2026/05/18 12:07:15 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,38 +49,12 @@ ksetup(void)
 	enable_cursor(14, 15);
 }
 
-void
-_stack_grow_2(int a, int b, int c, int d, int e)
-{
-	int ab = a + b;
-	int cd = c + d;
-	int abcde = ab + cd + e;
-	printk("Stack growth test: %d\n", abcde);
-	kstackdump();
-}
-
-void
-_stack_grow_1(void)
-{
-	uint16_t buffer[256];
-	for (int i = 0; i < 256; i++)
-		buffer[i] = i;
-	
-	_stack_grow_2(1, 2, 3, 4, 5);
-	buffer[0] = 42;
-	printk("Buffer[0] after stack growth: %d\n", buffer[0]);
-}
-
 int
 kmain(void)
 {
 	ksetup();
 
 	printk("Welcome to KFS%d!\n", 2);
-
-	// ksleep(1500);
-
-	// _stack_grow_1();
 
 	kernel_shell();
 

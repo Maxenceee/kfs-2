@@ -1,3 +1,8 @@
+; gdt.asm - Global Descriptor Table setup for x86 protected mode
+; This code defines the GDT entries for both kernel and user-space segments,
+; and includes a function to load the GDT into the CPU. The GDT is essential for
+; memory segmentation in protected mode, allowing the CPU to manage access to memory
+; based on segment selectors and their associated descriptors.
 [BITS 32]
 
 ; Descriptor flag macros

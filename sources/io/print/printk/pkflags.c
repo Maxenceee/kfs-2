@@ -17,7 +17,7 @@ void	pkcheck_flags(const char *fmt, va_list *argp, t_flags *flags, int *idx)
 {
 	while (fmt[*idx])
 	{
-		if (!pkisdigit(fmt[*idx]) && !pkis_valid_type(fmt[*idx])
+		if (!kisdigit(fmt[*idx]) && !pkis_valid_type(fmt[*idx])
 			&& !pkis_valid_flag(fmt[*idx]))
 			break ;
 		pkcheck_flags_identifiers(fmt, argp, flags, idx);
@@ -47,7 +47,7 @@ void	pkcheck_flags_identifiers(const char *fmt, va_list *argp,
 		pkblank_flag(flags, fmt, idx);
 	if (fmt[*idx] == '*')
 		pkwidth_flag(argp, flags);
-	if (pkisdigit(fmt[*idx]))
+	if (kisdigit(fmt[*idx]))
 		pkdigit_flag(fmt[*idx], flags);
 }
 
@@ -107,7 +107,7 @@ void	pkdot_flag(const char *save, int *start,
 	else
 	{
 		flags->dot = 0;
-		while (pkisdigit(save[*start]))
+		while (kisdigit(save[*start]))
 		{
 			flags->dot = (flags->dot * 10) + (save[(*start)++] - '0');
 		}

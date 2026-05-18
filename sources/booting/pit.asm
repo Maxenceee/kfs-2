@@ -1,3 +1,6 @@
+; pit.asm - Programmable Interval Timer (PIT) setup for x86 protected mode
+; This code initializes the PIT to generate timer interrupts at a specified frequency (TARGET_HZ).
+; The PIT is a crucial component for implementing multitasking and timekeeping in an operating system.
 [BITS 32]
 
 %define PIT_FREQ 1193182

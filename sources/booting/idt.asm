@@ -1,3 +1,8 @@
+; idt.asm - Interrupt Descriptor Table setup for x86 protected mode
+; This code defines the structure of the Interrupt Descriptor Table (IDT) for handling
+; CPU exceptions and hardware interrupts. It includes the setup for remapping the
+; Programmable Interrupt Controller (PIC) to avoid conflicts with CPU exceptions, and
+; initializes the IDT entries for the timer (PIT) and keyboard interrupts.
 [BITS 32]
 
 section .data
