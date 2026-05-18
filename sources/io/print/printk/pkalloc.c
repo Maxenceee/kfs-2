@@ -6,13 +6,11 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 13:19:10 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 13:32:25 by mgama            ###   ########.fr       */
+/*   Updated: 2026/05/18 13:45:58 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "_printk.h"
-
-#define stack_alloc(size) __builtin_alloca(size)
 
 #define PRINTK_BUFFER_SIZE 1024
 static uint8_t  __pk_stack[PRINTK_BUFFER_SIZE];
@@ -40,7 +38,20 @@ __printk_alloc(uint32_t size)
 }
 
 void
-__printk_free(void * __unused ptr)
+__printk_free(void *ptr)
 {
-	__pk_ptr = 0;
+	if (ptr == NULL)
+	{
+		return;
+	}
+
+	if ((uint8_t *)ptr >= __pk_stack && (uint8_t *)ptr < (__pk_stack + PRINTK_BUFFER_SIZE))
+	{
+		uint32_t target_offset = (uint8_t *)ptr - __pk_stack;
+
+		if (target_offset <= __pk_ptr)
+		{
+			__pk_ptr = target_offset;
+		}
+	}
 }

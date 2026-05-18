@@ -6,13 +6,13 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 12:35:15 by mgama             #+#    #+#             */
-/*   Updated: 2026/04/23 15:21:54 by mgama            ###   ########.fr       */
+/*   Updated: 2026/05/18 14:42:56 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "io/print/print.h"
 
-extern uint32_t stack_space;
+extern uint32_t _kstack_space;
 
 static inline uint32_t
 get_esp(void)
@@ -27,7 +27,7 @@ void
 kstackdump(void)
 {
 	uint32_t esp = get_esp();
-	uint32_t stack_base = (uint32_t)&stack_space;
+	uint32_t stack_base = (uint32_t)&_kstack_space;
 	uint32_t diff = stack_base - esp;
 
 	uint32_t nb_words = (diff + 3) / sizeof(uint32_t);

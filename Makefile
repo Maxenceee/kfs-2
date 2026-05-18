@@ -19,8 +19,8 @@ RM              =   rm -rf
 CFLAGS          =   -m32 -fno-builtin -fno-stack-protector \
                     -nostdlib -nodefaultlibs -ffreestanding \
                     -fno-pie -Wall \
-					-I $(INCLUDES_DIR) -I $(SOURCE_DIR)
-# 					-Wextra -Werror 
+					-I $(INCLUDES_DIR) -I $(SOURCE_DIR) \
+ 					-Wextra -Werror 
 
 ASMFLAGS        =   -f elf32
 LDFLAGS         =   -m32 -T linker.ld -nostdlib -nodefaultlibs -no-pie

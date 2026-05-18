@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:04:34 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/18 11:04:36 by mgama            ###   ########.fr       */
+/*   Updated: 2026/05/18 14:55:18 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,17 @@ vga_init(void)
 void
 vga_clear_screen(void)
 {
-	for (int i = 0; i < VGA_HEIGHT; i++)
-	{
-		vga_scroll_screen();
-	}
-	cursor_pos = 0;
-	move_cursor(cursor_pos);
+    volatile uint16_t *buffer = (uint16_t *)VGA_TEXT_BUFFER;
+
+	uint16_t clear_val = (uint16_t)(' ' | ((VGA_BACK_BLACK | VGA_FORE_WHITE) << 8));
+
+    for (int i = 0; i < VGA_HEIGHT * VGA_WIDTH; i++)
+    {
+        buffer[i] = clear_val;
+    }
+
+    cursor_pos = 0;
+    move_cursor(cursor_pos);
 }
 
 void
@@ -88,6 +93,8 @@ vga_scroll_screen(void)
 {
 	volatile uint16_t *buffer = (uint16_t *)VGA_TEXT_BUFFER;
 
+	uint16_t clear_val = (uint16_t)(' ' | ((VGA_BACK_BLACK | VGA_FORE_WHITE) << 8));
+
 	for (int i = 0; i < (VGA_HEIGHT - 1) * VGA_WIDTH; i++)
 	{
 		buffer[i] = buffer[i + VGA_WIDTH];
@@ -95,6 +102,6 @@ vga_scroll_screen(void)
 
 	for (int i = (VGA_HEIGHT - 1) * VGA_WIDTH; i < VGA_HEIGHT * VGA_WIDTH; i++)
 	{
-		buffer[i] = 0x0F00;
+		buffer[i] = clear_val;
 	}
 }

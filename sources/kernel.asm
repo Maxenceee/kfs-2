@@ -17,7 +17,7 @@ _start:
 
 	call _setup_gdt         ; Setup Global Descriptor Table (GDT) for memory segmentation
 
-	mov esp, stack_space	; Initialize stack pointer to the top of the reserved stack space
+	mov esp, _kstack_space	; Initialize stack pointer to the top of the reserved stack space
 	
 	call _setup_idt         ; Setup Interrupt Descriptor Table (IDT) for handling interrupts
 
@@ -32,7 +32,7 @@ hang:
 	jmp hang
 
 section .bss
-global stack_space
+global _kstack_space
 align 16
 resb 8192                   ; Reserve 8 Ko for the stack
-stack_space:
+_kstack_space:

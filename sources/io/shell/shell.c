@@ -6,55 +6,33 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:04:23 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/18 12:14:04 by mgama            ###   ########.fr       */
+/*   Updated: 2026/05/18 14:48:30 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
-#include "io/print/print.h"
-#include "sys/sys.h"
+#include "_kshell.h"
 #include "std/std.h"
-#include "io/screen/screen.h"
+#include "io/print/print.h"
+#include "booting/booting.h"
 
-uint8_t	kbd_read(char *buffer, uint8_t max_length);
-
-#define SHPROMPT "OS Shell> "
-
-void	print_help(void);
-
-void
-_stack_grow_fake(void)
-{
-	uint16_t buffer[16];
-	for (int i = 0; i < 16; i++)
-		buffer[i] = i;
-
-	buffer[0] = 42;
-	printk("Buffer[0] after stack growth: %d\n", buffer[0]);
-	kstackdump();
-}
-
-struct command
-{
-	char *name;
-	void (*func)(void);
-} avail_commands[] = {
-	{"help", &print_help},
-	{"clear", &vga_clear_screen},
-	{"reboot", &kreboot},
-	{"shutdown", &kshutdown},
-	{"dump", &kstackdump},
-	{"fdump", &_stack_grow_fake},
+#define X(cmd) DECLARE_SHCMD(cmd),
+struct command avail_commands[] = {
+	COMMAND_LIST
 };
+#undef X
 
-void
-print_help(void)
+const size_t avail_commands_count = sizeof(avail_commands) / sizeof(avail_commands[0]);
+
+uint8_t
+find_first(const char *str, char c)
 {
-	printk("Available commands:\n");
-	for (size_t i = 0; i < sizeof(avail_commands) / sizeof(avail_commands[0]); i++)
+	for (size_t i = 0; str[i] != '\0'; i++)
 	{
-		printk("  - %s\n", avail_commands[i].name);
+		if (str[i] == c)
+			return (i);
 	}
+	return (INT8_MAX);
 }
 
 void __dead2
@@ -62,7 +40,7 @@ kernel_shell(void)
 {
 	printk(SHPROMPT);
 
-	char shell_buffer[80];
+	char shell_buffer[256];
 
 	while(1)
 	{
@@ -73,15 +51,21 @@ kernel_shell(void)
 			continue;
 		}
 
+		uint8_t first_word = find_first(shell_buffer, ' ');
+		char command_name[first_word];
+		kmemcpy(command_name, shell_buffer, first_word);
+		command_name[first_word] = '\0';
+		char *args = shell_buffer + first_word + 1;
+
 		int found_command = 0;
-		for (size_t i = 0; i < sizeof(avail_commands) / sizeof(avail_commands[0]); i++)
+		for (size_t i = 0; i < avail_commands_count; i++)
 		{
-			if (kstrcmp(shell_buffer, avail_commands[i].name) == 0)
+			if (kstrcmp(command_name, avail_commands[i].name) == 0)
 			{
-				void (*command_func)(void) = avail_commands[i].func;
+				void (*command_func)(const char *) = avail_commands[i].func;
 				if (command_func)
 				{
-					command_func();
+					command_func(args);
 				}
 				found_command = 1;
 				break;
@@ -89,7 +73,7 @@ kernel_shell(void)
 		}
 		if (!found_command)
 		{
-			printk("Unknown command: %s\n", shell_buffer);
+			printk("Unknown command: %s\n", command_name);
 		}
 
 		printk(SHPROMPT);
