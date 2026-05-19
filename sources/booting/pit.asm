@@ -3,6 +3,9 @@
 ; The PIT is a crucial component for implementing multitasking and timekeeping in an operating system.
 [BITS 32]
 
+; Define PIT frequency and divisor for the desired timer interrupt frequency
+; The PIT operates at a base frequency of 1.193182 MHz, and the divisor is calculated
+; to achieve the target frequency (e.g., 100 Hz for 100 timer interrupts per second).
 %define PIT_FREQ 1193182
 %define TARGET_HZ 100
 %define PIT_DIVISOR (PIT_FREQ / TARGET_HZ)

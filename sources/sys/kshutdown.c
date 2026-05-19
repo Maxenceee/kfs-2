@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:03:50 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/18 12:15:16 by mgama            ###   ########.fr       */
+/*   Updated: 2026/05/19 10:39:34 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ kshutdown(void)
 	printk("\nShutdown failed. You can safely turn off your computer.");
 	while(1)
 	{
-		__asm__("hlt");
+		__asm__ volatile ("hlt");
 	}
 }

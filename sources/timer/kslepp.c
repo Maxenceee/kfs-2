@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:04:07 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/18 11:04:10 by mgama            ###   ########.fr       */
+/*   Updated: 2026/05/19 10:47:53 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ ksleep(uint32_t ms)
 
 	while (jiffies < end)
 	{
-		asm volatile("hlt"); 
+		__asm__ volatile("hlt"); 
 	}
 }

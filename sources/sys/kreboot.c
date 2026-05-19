@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:03:57 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/18 12:05:03 by mgama            ###   ########.fr       */
+/*   Updated: 2026/05/19 10:39:10 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ kreboot(void)
 	}
 	printk("\nRebooting...\n");
 
-	// This is a common method to trigger a reboot by causing a triple fault, which forces the CPU to reset.
+	// This is a common method to trigger a reboot by causing a triple fault,
+	// which forces the CPU to reset.
 	__asm__ volatile (
         "lidt (%0) \n"
         "int $3"

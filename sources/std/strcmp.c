@@ -5,10 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/18 11:59:31 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/18 11:59:38 by mgama            ###   ########.fr       */
+/*   Created: 2026/05/19 10:38:27 by mgama             #+#    #+#             */
+/*   Updated: 2026/05/19 10:38:38 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "std/std.h"
 
 int	kstrcmp(const char *s1, const char *s2)
 {

@@ -6,19 +6,39 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 12:35:15 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/18 14:42:56 by mgama            ###   ########.fr       */
+/*   Updated: 2026/05/19 10:56:29 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "io/print/print.h"
 
-extern uint32_t _kstack_space;
+/**
+ * The `_kstack_base` symbol is defined by the kernel to be the maximum address of the
+ * kernel stack space. It can be used to get the base address of the kernel
+ * stack and calculate the size of the stack used by comparing it with the
+ * current ESP value.
+ * 
+ *        <- Highter addresses
+ *  +--------+ <- `_kstack_base` (base/end)
+ *  |        |
+ *  |  USED  |
+ *  |        |
+ *  +--------+ <- `ESP` (current stack pointer)
+ *  |        |
+ *  | UNUSED |
+ *  |        |
+ *  +--------+
+ *       <- Lower addresses
+ *
+ * diff = _kstack_base - ESP (bytes used on stack)
+ */
+extern uint32_t _kstack_base;
 
 static inline uint32_t
 get_esp(void)
 {
 	uint32_t esp;
-	asm volatile("mov %%esp, %0" : "=r"(esp));
+	__asm__ volatile("mov %%esp, %0" : "=r"(esp));
 
 	return esp;
 }
@@ -27,7 +47,7 @@ void
 kstackdump(void)
 {
 	uint32_t esp = get_esp();
-	uint32_t stack_base = (uint32_t)&_kstack_space;
+	uint32_t stack_base = (uint32_t)&_kstack_base;
 	uint32_t diff = stack_base - esp;
 
 	uint32_t nb_words = (diff + 3) / sizeof(uint32_t);

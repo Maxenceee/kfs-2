@@ -5,46 +5,46 @@
 global outb
 ; void outb(uint16_t port, uint8_t data)
 outb:
-	mov dx, [esp + 4]    ; Récupère le port (1er argument)
-	mov al, [esp + 8]    ; Récupère la donnée (2e argument)
-	out dx, al           ; Envoie la donnée au port !
+	mov dx, [esp + 4]    ; Gets the port (1st argument)
+	mov al, [esp + 8]    ; Gets the data (2nd argument)
+	out dx, al           ; Sends the data to the port!
 	ret
 
 global outw
 ; void outw(uint16_t port, uint16_t data)
 outw:
-	mov dx, [esp + 4]    ; Récupère le port (1er argument)
-	mov ax, [esp + 8]    ; Récupère la donnée (2e argument)
-	out dx, ax           ; Envoie la donnée au port !
+	mov dx, [esp + 4]    ; Gets the port (1st argument)
+	mov ax, [esp + 8]    ; Gets the data (2nd argument)
+	out dx, ax           ; Sends the data to the port!
 	ret
 
 global outl
 ; void outl(uint16_t port, uint32_t data)
 outl:
-	mov dx, [esp + 4]    ; Récupère le port (1er argument)
-	mov eax, [esp + 8]   ; Récupère la donnée (2e argument)
-	out dx, eax          ; Envoie la donnée au port !
+	mov dx, [esp + 4]    ; Gets the port (1st argument)
+	mov eax, [esp + 8]   ; Gets the data (2nd argument)
+	out dx, eax          ; Sends the data to the port!
 	ret
 
 global inb
 ; uint8_t inb(uint16_t port)
 inb:
-	mov dx, [esp + 4]    ; Récupère le port (1er argument)
-	in al, dx            ; Lit la donnée du port dans AL
-	movzx eax, al        ; Zéro-étend AL à EAX pour le retour
+	mov dx, [esp + 4]    ; Gets the port (1st argument)
+	in al, dx            ; Reads the data from the port into AL
+	movzx eax, al        ; Zero-extends AL to EAX for return
 	ret
 
 global inw
 ; uint16_t inw(uint16_t port)
 inw:
-	mov dx, [esp + 4]    ; Récupère le port (1er argument)
-	in ax, dx            ; Lit la donnée du port dans AX
-	movzx eax, ax        ; Zéro-étend AX à EAX pour le retour
+	mov dx, [esp + 4]    ; Gets the port (1st argument)
+	in ax, dx            ; Reads the data from the port into AX
+	movzx eax, ax        ; Zero-extends AX to EAX for return
 	ret
 
 global inl
 ; uint32_t inl(uint16_t port)
 inl:
-	mov dx, [esp + 4]    ; Récupère le port (1er argument)
-	in eax, dx           ; Lit la donnée du port dans EAX
+	mov dx, [esp + 4]    ; Gets the port (1st argument)
+	in eax, dx           ; Reads the data from the port into EAX
 	ret
