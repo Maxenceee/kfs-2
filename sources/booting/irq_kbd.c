@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:04:55 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/19 10:39:42 by mgama            ###   ########.fr       */
+/*   Updated: 2026/05/19 11:37:56 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ _irq_kbd_handler(void)
 size_t
 kbd_read(char *buffer, size_t max_length)
 {
+	kbd_enable();
 	while (!irq_kbd_command_ready)
 	{
 		__asm__ volatile ("hlt");
@@ -180,5 +181,6 @@ kbd_read(char *buffer, size_t max_length)
 	irq_kbd_buffer_index = 0;
     irq_kbd_command_ready = 0;
 
+	kbd_disable();
 	return length_to_copy;
 }

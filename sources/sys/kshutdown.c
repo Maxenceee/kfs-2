@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:03:50 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/19 10:39:34 by mgama            ###   ########.fr       */
+/*   Updated: 2026/05/19 11:22:36 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ kshutdown(void)
 	while (timer > 0)
 	{
 		printk("The kernel will shut down in %ds...\r", timer);
-		ksleep(1000);
+		kmsleep(1000);
 		timer--;
 	}
 	printk("\nShutting down...\n");

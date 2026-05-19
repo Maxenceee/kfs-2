@@ -6,13 +6,15 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 13:53:45 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/18 16:15:35 by mgama            ###   ########.fr       */
+/*   Updated: 2026/05/19 11:39:15 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
 #include "_kshell.h"
 #include "sys/sys.h"
+#include "std/std.h"
+#include "timer/delay.h"
 #include "io/screen/screen.h"
 #include "io/print/print.h"
 
@@ -48,4 +50,16 @@ EXPORT_SHCMD(dump)
 EXPORT_SHCMD(echo)
 {
 	printk("%s\n", args);
+}
+
+EXPORT_SHCMD(sleep)
+{
+	int s = katoi(args);
+	if (s <= 0)
+	{
+		printk("Usage: sleep <seconds>\n");
+		return;
+	}
+
+	ksleep(s);
 }

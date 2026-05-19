@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:03:57 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/19 10:39:10 by mgama            ###   ########.fr       */
+/*   Updated: 2026/05/19 11:22:36 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ kreboot(void)
 	while (timer > 0)
 	{
 		printk("The kernel will reboot in %ds...\r", timer);
-		ksleep(1000);
+		kmsleep(1000);
 		timer--;
 	}
 	printk("\nRebooting...\n");

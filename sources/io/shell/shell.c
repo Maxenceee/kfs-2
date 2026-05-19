@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:04:23 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/18 16:04:51 by mgama            ###   ########.fr       */
+/*   Updated: 2026/05/19 11:38:44 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,6 @@ struct command avail_commands[] = {
 
 const size_t avail_commands_count = sizeof(avail_commands) / sizeof(avail_commands[0]);
 
-size_t
-find_first(const char *str, char c)
-{
-	for (size_t i = 0; str[i] != '\0'; i++)
-	{
-		if (str[i] == c)
-			return (i);
-	}
-	return (SIZE_MAX);
-}
-
 void __dead2
 kernel_shell(void)
 {
@@ -51,11 +40,28 @@ kernel_shell(void)
 			continue;
 		}
 
-		size_t first_word = find_first(shell_buffer, ' ');
-		char command_name[first_word];
-		kmemcpy(command_name, shell_buffer, first_word);
-		command_name[first_word] = '\0';
-		char *args = shell_buffer + first_word + 1;
+		size_t first_space = 0;
+        while (first_space < prompt_len && shell_buffer[first_space] != ' ')
+        {
+            first_space++;
+        }
+
+        char command_name[first_space + 1];
+        kmemcpy(command_name, shell_buffer, first_space);
+        command_name[first_space] = '\0';
+
+        char *args = "";
+        size_t arg_idx = first_space;
+
+        while (arg_idx < prompt_len && shell_buffer[arg_idx] == ' ')
+        {
+            arg_idx++;
+        }
+
+        if (arg_idx < prompt_len && shell_buffer[arg_idx] != '\0')
+        {
+            args = shell_buffer + arg_idx;
+        }
 
 		int found_command = 0;
 		for (size_t i = 0; i < avail_commands_count; i++)

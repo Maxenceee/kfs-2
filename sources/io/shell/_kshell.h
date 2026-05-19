@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 14:03:31 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/18 16:15:42 by mgama            ###   ########.fr       */
+/*   Updated: 2026/05/19 11:23:45 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ struct command
 	X(reboot)        \
 	X(shutdown)      \
 	X(dump)          \
-	X(echo)
+	X(echo)          \
+	X(sleep)
 
 #define X(cmd) EXPORT_SHCMD(cmd);
 COMMAND_LIST
