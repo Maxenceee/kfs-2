@@ -13,14 +13,19 @@
 #include "io/io.h"
 #include "io/print/print.h"
 #include "std/std.h"
+#include "io/screen/screen.h"
 
 #define KBD_BUFFER_SIZE 256
 static char irq_kbd_buffer[KBD_BUFFER_SIZE];
 volatile uint8_t irq_kbd_buffer_index = 0;
+volatile uint8_t irq_kbd_cursor_offset = 0;
 volatile uint8_t irq_kbd_command_ready = 0;
 volatile uint8_t irq_kbd_is_shift_pressed = 0;
 
 volatile int irq_kbd_enabled = 0;
+volatile int irq_kdb_extended = 0;
+
+static uint16_t prompt_start_cursor_pos = 0;
 
 static const char irq_kbd_qwerty_map[128] = {
     0,  27, '1', '2', '3', '4', '5', '6', '7', '8', /* 0x00 - 0x09 */
@@ -102,6 +107,21 @@ kbd_disable(void)
 	irq_kbd_enabled = 0;
 }
 
+static void
+refresh_tail(void)
+{
+    uint16_t saved_cursor = cursor_pos;
+
+    for (uint8_t i = irq_kbd_cursor_offset; i < irq_kbd_buffer_index; i++)
+    {
+        printk("%c", irq_kbd_buffer[i]);
+    }
+    printk(" ");
+
+    cursor_pos = saved_cursor;
+    move_cursor(cursor_pos);
+}
+
 void
 _irq_kbd_handler(void)
 {
@@ -111,6 +131,49 @@ _irq_kbd_handler(void)
     {
         return; 
     }
+
+	if (scancode == 0xE0)
+	{
+		irq_kdb_extended = 1;
+		return;
+	}
+
+	if (irq_kdb_extended)
+	{
+		irq_kdb_extended = 0;
+
+		if (scancode & 0x80)
+        {
+            return;
+        }
+
+		switch (scancode)
+        {
+            case 0x48: // Flèche Haut
+                break;
+            case 0x50: // Flèche Bas
+                break;
+            case 0x4B: // Flèche Gauche
+                if (irq_kbd_cursor_offset > 0)
+                {
+					irq_kbd_cursor_offset--;
+                    cursor_pos--;
+                    move_cursor(cursor_pos);
+                }
+                break;
+            case 0x4D: // Flèche Droite
+                if (irq_kbd_cursor_offset < irq_kbd_buffer_index)
+                {
+					irq_kbd_cursor_offset++;
+                    cursor_pos++;
+                    move_cursor(cursor_pos);
+                }
+                break;
+            default:
+                break;
+        }
+        return;
+	}
 
 	if (scancode & 0x80)
 	{
@@ -129,15 +192,8 @@ _irq_kbd_handler(void)
 
 	if (irq_kbd_command_ready) return;
 
-	char ascii;
-    if (irq_kbd_is_shift_pressed)
-    {
-        ascii = irq_kbd_qwerty_shift_map[scancode];
-    }
-    else
-    {
-        ascii = irq_kbd_qwerty_map[scancode];
-    }
+	char ascii = irq_kbd_is_shift_pressed ? irq_kbd_qwerty_shift_map[scancode] : irq_kbd_qwerty_map[scancode];
+
 	if (ascii != 0)
 	{
 		if (ascii == '\n')
@@ -148,18 +204,39 @@ _irq_kbd_handler(void)
 		} 
 		else if (ascii == '\b')
 		{
-			if (irq_kbd_buffer_index > 0)
-			{
-				irq_kbd_buffer_index--;
-				printk("\b \b");
-			}
+			if (irq_kbd_cursor_offset > 0)
+            {
+                for (uint8_t i = irq_kbd_cursor_offset - 1; i < irq_kbd_buffer_index - 1; i++)
+                {
+                    irq_kbd_buffer[i] = irq_kbd_buffer[i + 1];
+                }
+                irq_kbd_buffer_index--;
+                irq_kbd_cursor_offset--;
+
+                cursor_pos--;
+                move_cursor(cursor_pos);
+                refresh_tail();
+            }
 		} 
 		else
 		{
 			if (irq_kbd_buffer_index < KBD_BUFFER_SIZE - 1) // Prevent overflow, leaving space for null terminator
 			{
-				irq_kbd_buffer[irq_kbd_buffer_index++] = ascii;
-				printk("%c", ascii);
+				for (uint8_t i = irq_kbd_buffer_index; i > irq_kbd_cursor_offset; i--)
+                {
+                    irq_kbd_buffer[i] = irq_kbd_buffer[i - 1];
+                }
+
+                irq_kbd_buffer[irq_kbd_cursor_offset] = ascii;
+                irq_kbd_buffer_index++;
+
+                printk("%c", ascii);
+                irq_kbd_cursor_offset++;
+
+                if (irq_kbd_cursor_offset < irq_kbd_buffer_index)
+                {
+                    refresh_tail();
+                }
 			}
 		}
 	}
@@ -168,6 +245,10 @@ _irq_kbd_handler(void)
 size_t
 kbd_read(char *buffer, size_t max_length)
 {
+	prompt_start_cursor_pos = cursor_pos;
+	irq_kbd_buffer_index = 0;
+	irq_kbd_cursor_offset = 0;
+
 	kbd_enable();
 	while (!irq_kbd_command_ready)
 	{
@@ -178,8 +259,10 @@ kbd_read(char *buffer, size_t max_length)
 
 	kmemcpy(buffer, irq_kbd_buffer, length_to_copy);
 	buffer[length_to_copy] = '\0';
+
 	irq_kbd_buffer_index = 0;
-    irq_kbd_command_ready = 0;
+    irq_kbd_cursor_offset = 0;
+	irq_kbd_command_ready = 0;
 
 	kbd_disable();
 	return length_to_copy;

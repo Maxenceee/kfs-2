@@ -17,6 +17,7 @@
 
 #define VGA_WIDTH 80
 #define VGA_HEIGHT 25
+#define VGA_HISTORY_LINES 100
 
 #define VGA_TEXT_BUFFER 0xb8000u
 
@@ -60,7 +61,8 @@ void	vga_init(void);
 void	vga_put(const char c, uint8_t attrib);
 void	vga_puts(const char *str, uint32_t len, uint8_t attrib);
 void	vga_clear_screen(void);
-void	vga_scroll_screen(void);
+void    vga_scroll_up(void);
+void    vga_scroll_down(void);
 
 void		enable_cursor(uint8_t cursor_start, uint8_t cursor_end);
 void		move_cursor(uint16_t pos);
