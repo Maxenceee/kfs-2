@@ -18,7 +18,7 @@ _start:
 	call _setup_gdt         ; Setup Global Descriptor Table (GDT) for memory segmentation
 
 	mov esp, _kstack_base	; Initialize stack pointer to the top of the reserved stack space
-	
+
 	call _setup_idt         ; Setup Interrupt Descriptor Table (IDT) for handling interrupts
 
 	sti                     ; Enable interrupts

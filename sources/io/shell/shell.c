@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:04:23 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/19 11:38:44 by mgama            ###   ########.fr       */
+/*   Updated: 2026/06/04 18:41:05 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,27 @@ kernel_shell(void)
 		}
 
 		size_t first_space = 0;
-        while (first_space < prompt_len && shell_buffer[first_space] != ' ')
-        {
-            first_space++;
-        }
+		while (first_space < prompt_len && shell_buffer[first_space] != ' ')
+		{
+			first_space++;
+		}
 
-        char command_name[first_space + 1];
-        kmemcpy(command_name, shell_buffer, first_space);
-        command_name[first_space] = '\0';
+		char command_name[first_space + 1];
+		kmemcpy(command_name, shell_buffer, first_space);
+		command_name[first_space] = '\0';
 
-        char *args = "";
-        size_t arg_idx = first_space;
+		char *args = "";
+		size_t arg_idx = first_space;
 
-        while (arg_idx < prompt_len && shell_buffer[arg_idx] == ' ')
-        {
-            arg_idx++;
-        }
+		while (arg_idx < prompt_len && shell_buffer[arg_idx] == ' ')
+		{
+			arg_idx++;
+		}
 
-        if (arg_idx < prompt_len && shell_buffer[arg_idx] != '\0')
-        {
-            args = shell_buffer + arg_idx;
-        }
+		if (arg_idx < prompt_len && shell_buffer[arg_idx] != '\0')
+		{
+			args = shell_buffer + arg_idx;
+		}
 
 		int found_command = 0;
 		for (size_t i = 0; i < avail_commands_count; i++)

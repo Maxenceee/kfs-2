@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 13:53:45 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/19 11:39:15 by mgama            ###   ########.fr       */
+/*   Updated: 2026/06/04 18:41:00 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 EXPORT_SHCMD(help)
 {
 	printk("Available commands:\n");
-    for (size_t i = 0; i < avail_commands_count; i++)
-    {
-        printk("  - %s\n", avail_commands[i].name);
-    }
+	for (size_t i = 0; i < avail_commands_count; i++)
+	{
+		printk("  - %s\n", avail_commands[i].name);
+	}
 }
 
 EXPORT_SHCMD(clear)

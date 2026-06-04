@@ -63,28 +63,28 @@
 ; GDT_STACK_PL3: User-mode stack segment
 ;   - Same as DATA_PL3 (stack uses data segment properties)
 %define GDT_CODE_PL0 SEG_DESCTYPE(1) | SEG_PRES(1) | SEG_SAVL(0) | \
-					 SEG_LONG(0)     | SEG_SIZE(1) | SEG_GRAN(1) | \
-					 SEG_PRIV(0)     | SEG_CODE_EXRD
+					SEG_LONG(0)     | SEG_SIZE(1) | SEG_GRAN(1) | \
+					SEG_PRIV(0)     | SEG_CODE_EXRD
 
 %define GDT_DATA_PL0 SEG_DESCTYPE(1) | SEG_PRES(1) | SEG_SAVL(0) | \
-					 SEG_LONG(0)     | SEG_SIZE(1) | SEG_GRAN(1) | \
-					 SEG_PRIV(0)     | SEG_DATA_RDWR
+					SEG_LONG(0)     | SEG_SIZE(1) | SEG_GRAN(1) | \
+					SEG_PRIV(0)     | SEG_DATA_RDWR
 
 %define GDT_STACK_PL0 SEG_DESCTYPE(1) | SEG_PRES(1) | SEG_SAVL(0) | \
-					 SEG_LONG(0)     | SEG_SIZE(1) | SEG_GRAN(1) | \
-					 SEG_PRIV(0)     | SEG_DATA_RDWR
+					SEG_LONG(0)     | SEG_SIZE(1) | SEG_GRAN(1) | \
+					SEG_PRIV(0)     | SEG_DATA_RDWR
 
 %define GDT_CODE_PL3 SEG_DESCTYPE(1) | SEG_PRES(1) | SEG_SAVL(0) | \
-					 SEG_LONG(0)     | SEG_SIZE(1) | SEG_GRAN(1) | \
-					 SEG_PRIV(3)     | SEG_CODE_EXRD
+					SEG_LONG(0)     | SEG_SIZE(1) | SEG_GRAN(1) | \
+					SEG_PRIV(3)     | SEG_CODE_EXRD
 
 %define GDT_DATA_PL3 SEG_DESCTYPE(1) | SEG_PRES(1) | SEG_SAVL(0) | \
-					 SEG_LONG(0)     | SEG_SIZE(1) | SEG_GRAN(1) | \
-					 SEG_PRIV(3)     | SEG_DATA_RDWR
+					SEG_LONG(0)     | SEG_SIZE(1) | SEG_GRAN(1) | \
+					SEG_PRIV(3)     | SEG_DATA_RDWR
 
 %define GDT_STACK_PL3 SEG_DESCTYPE(1) | SEG_PRES(1) | SEG_SAVL(0) | \
-					 SEG_LONG(0)     | SEG_SIZE(1) | SEG_GRAN(1) | \
-					 SEG_PRIV(3)     | SEG_DATA_RDWR
+					SEG_LONG(0)     | SEG_SIZE(1) | SEG_GRAN(1) | \
+					SEG_PRIV(3)     | SEG_DATA_RDWR
 
 %define GET_ACCESS(x) ((x) & 0xFF)
 %define GET_FLAGS(x)  (((x) >> 8) & 0xFF)
@@ -93,24 +93,24 @@ section .data
 align 4
 
 gdt_start:
-    ; 0x00 : Null Descriptor
-    dq 0
+	; 0x00 : Null Descriptor
+	dq 0
 
-    ; 0x08 : Kernel Code (PL0)
-    dw 0xFFFF                   ; Limit (0-15)
-    dw 0x0000                   ; Base (0-15)
-    db 0x00                     ; Base (16-23)
-    db GET_ACCESS(GDT_CODE_PL0) ; Access Byte
-    db GET_FLAGS(GDT_CODE_PL0) | 0x0F ; Flags + Limit (16-19) -> 0xF pour 4Go
-    db 0x00                     ; Base (24-31)
+	; 0x08 : Kernel Code (PL0)
+	dw 0xFFFF                   ; Limit (0-15)
+	dw 0x0000                   ; Base (0-15)
+	db 0x00                     ; Base (16-23)
+	db GET_ACCESS(GDT_CODE_PL0) ; Access Byte
+	db GET_FLAGS(GDT_CODE_PL0) | 0x0F ; Flags + Limit (16-19) -> 0xF pour 4Go
+	db 0x00                     ; Base (24-31)
 
-    ; 0x10 : Kernel Data (PL0)
-    dw 0xFFFF
-    dw 0x0000
-    db 0x00
-    db GET_ACCESS(GDT_DATA_PL0)
-    db GET_FLAGS(GDT_DATA_PL0) | 0x0F
-    db 0x00
+	; 0x10 : Kernel Data (PL0)
+	dw 0xFFFF
+	dw 0x0000
+	db 0x00
+	db GET_ACCESS(GDT_DATA_PL0)
+	db GET_FLAGS(GDT_DATA_PL0) | 0x0F
+	db 0x00
 
 	; 0x18 : Kernel Stack (PL0)
 	dw 0xFFFF
@@ -120,21 +120,21 @@ gdt_start:
 	db GET_FLAGS(GDT_STACK_PL0) | 0x0F
 	db 0x00
 
-    ; 0x20 : User Code (PL3)
-    dw 0xFFFF
-    dw 0x0000
-    db 0x00
-    db GET_ACCESS(GDT_CODE_PL3)
-    db GET_FLAGS(GDT_CODE_PL3) | 0x0F
-    db 0x00
+	; 0x20 : User Code (PL3)
+	dw 0xFFFF
+	dw 0x0000
+	db 0x00
+	db GET_ACCESS(GDT_CODE_PL3)
+	db GET_FLAGS(GDT_CODE_PL3) | 0x0F
+	db 0x00
 
-    ; 0x28 : User Data (PL3)
-    dw 0xFFFF
-    dw 0x0000
-    db 0x00
-    db GET_ACCESS(GDT_DATA_PL3)
-    db GET_FLAGS(GDT_DATA_PL3) | 0x0F
-    db 0x00
+	; 0x28 : User Data (PL3)
+	dw 0xFFFF
+	dw 0x0000
+	db 0x00
+	db GET_ACCESS(GDT_DATA_PL3)
+	db GET_FLAGS(GDT_DATA_PL3) | 0x0F
+	db 0x00
 
 	; 0x30 : User Stack (PL3)
 	dw 0xFFFF
@@ -147,20 +147,20 @@ gdt_start:
 gdt_end:
 
 gdtr:
-    dw gdt_end - gdt_start - 1 ; Limite
-    dd 0x00000800              ; Base
+	dw gdt_end - gdt_start - 1 ; Limite
+	dd 0x00000800              ; Base
 
 section .text
 global _setup_gdt
 
 _setup_gdt:
-    mov esi, gdt_start          ; Source (at 1Mo+)
-    mov edi, 0x800              ; Destination address in memory
-    mov ecx, (gdt_end - gdt_start)
-    cld                         ; Clear direction flag for forward copying
-    rep movsb                   ; Copy GDT to 0x800 byte by byte
+	mov esi, gdt_start          ; Source (at 1Mo+)
+	mov edi, 0x800              ; Destination address in memory
+	mov ecx, (gdt_end - gdt_start)
+	cld                         ; Clear direction flag for forward copying
+	rep movsb                   ; Copy GDT to 0x800 byte by byte
 
-    lgdt [gdtr]
+	lgdt [gdtr]
 	mov ax, 0x10          ; Load Kernel Data segment selector
 	mov ds, ax            ; Load data segment selector into DS (The Data Segment is used for all data accesses, including stack)
 	mov es, ax            ; Load data segment selector into ES (Extra Segment is often used for string operations)

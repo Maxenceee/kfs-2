@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 10:42:57 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/19 11:38:04 by mgama            ###   ########.fr       */
+/*   Updated: 2026/06/04 18:40:09 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ print_logo()
 {
 	printk("\n\n\n\n\n\n\n\n");
 
-    const char* logo =
-    "                           ____       _ _ _             \n"
-    "                          / ___|__ __| (_) | ___  ___   \n"
-    "                         | |  _/ _`  | | | |/ _ \\/ _ \\  \n"
-    "                         | |_| | (_| | | | |  __/ (_) | \n"
-    "                          \\____|\\__,_|_|_|_|\\___|\\___/  \n"
-    "                                                       \n"
-    "                            Kernel Project by " AUTHOR "\n";
+	const char* logo =
+	"                           ____       _ _ _             \n"
+	"                          / ___|__ __| (_) | ___  ___   \n"
+	"                         | |  _/ _`  | | | |/ _ \\/ _ \\  \n"
+	"                         | |_| | (_| | | | |  __/ (_) | \n"
+	"                          \\____|\\__,_|_|_|_|\\___|\\___/  \n"
+	"                                                       \n"
+	"                            Kernel Project by " AUTHOR "\n";
 
-    cprintk(VGA_FORE_CYAN | VGA_BACK_BLACK, "%s", logo);
+	cprintk(VGA_FORE_CYAN | VGA_BACK_BLACK, "%s", logo);
 }
 
 void

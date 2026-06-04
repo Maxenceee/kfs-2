@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:04:55 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/19 11:37:56 by mgama            ###   ########.fr       */
+/*   Updated: 2026/06/04 18:42:14 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ volatile int irq_kdb_extended = 0;
 static uint16_t prompt_start_cursor_pos = 0;
 
 static const char irq_kbd_qwerty_map[128] = {
-    0,  27, '1', '2', '3', '4', '5', '6', '7', '8', /* 0x00 - 0x09 */
-    '9', '0', '-', '=', '\b',   /* Backspace */
-    '\t',           /* Tab */
-    'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n', /* Enter */
-    0,          /* 0x1D - Control */
-    'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', '`', 0, /* Left Shift */
-    '\\', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 0, /* Right Shift */
-    '*',
+	0,  27, '1', '2', '3', '4', '5', '6', '7', '8', /* 0x00 - 0x09 */
+	'9', '0', '-', '=', '\b',   /* Backspace */
+	'\t',           /* Tab */
+	'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n', /* Enter */
+	0,          /* 0x1D - Control */
+	'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', '`', 0, /* Left Shift */
+	'\\', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 0, /* Right Shift */
+	'*',
 	0,		/* Alt */
 	' ',	/* Space bar */
 	0,		/* Caps lock */
@@ -62,14 +62,14 @@ static const char irq_kbd_qwerty_map[128] = {
 };
 
 static const char irq_kbd_qwerty_shift_map[128] = {
-    0,  27, '!', '@', '#', '$', '%', '^', '&', '*', /* 0x00 - 0x09 */
-    '(', ')', '_', '+', '\b',   /* Backspace */
-    '\t',           /* Tab */
-    'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', '\n', /* Enter */
-    0,          /* Control */
-    'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':', '"', '~', 0, /* Left Shift */
-    '|', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', 0, /* Right Shift */
-    '*',
+	0,  27, '!', '@', '#', '$', '%', '^', '&', '*', /* 0x00 - 0x09 */
+	'(', ')', '_', '+', '\b',   /* Backspace */
+	'\t',           /* Tab */
+	'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', '\n', /* Enter */
+	0,          /* Control */
+	'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':', '"', '~', 0, /* Left Shift */
+	'|', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', 0, /* Right Shift */
+	'*',
 	0,		/* Alt */
 	' ',	/* Space bar */
 	0,		/* Caps lock */
@@ -110,16 +110,16 @@ kbd_disable(void)
 static void
 refresh_tail(void)
 {
-    uint16_t saved_cursor = cursor_pos;
+	uint16_t saved_cursor = cursor_pos;
 
-    for (uint8_t i = irq_kbd_cursor_offset; i < irq_kbd_buffer_index; i++)
-    {
-        printk("%c", irq_kbd_buffer[i]);
-    }
-    printk(" ");
+	for (uint8_t i = irq_kbd_cursor_offset; i < irq_kbd_buffer_index; i++)
+	{
+		printk("%c", irq_kbd_buffer[i]);
+	}
+	printk(" ");
 
-    cursor_pos = saved_cursor;
-    move_cursor(cursor_pos);
+	cursor_pos = saved_cursor;
+	move_cursor(cursor_pos);
 }
 
 void
@@ -128,9 +128,9 @@ _irq_kbd_handler(void)
 	uint8_t scancode = inb(0x60);
 
 	if (!irq_kbd_enabled)
-    {
-        return; 
-    }
+	{
+		return; 
+	}
 
 	if (scancode == 0xE0)
 	{
@@ -143,36 +143,36 @@ _irq_kbd_handler(void)
 		irq_kdb_extended = 0;
 
 		if (scancode & 0x80)
-        {
-            return;
-        }
+		{
+			return;
+		}
 
 		switch (scancode)
-        {
-            case 0x48: // Flèche Haut
-                break;
-            case 0x50: // Flèche Bas
-                break;
-            case 0x4B: // Flèche Gauche
-                if (irq_kbd_cursor_offset > 0)
-                {
+		{
+			case 0x48: // Flèche Haut
+				break;
+			case 0x50: // Flèche Bas
+				break;
+			case 0x4B: // Flèche Gauche
+				if (irq_kbd_cursor_offset > 0)
+				{
 					irq_kbd_cursor_offset--;
-                    cursor_pos--;
-                    move_cursor(cursor_pos);
-                }
-                break;
-            case 0x4D: // Flèche Droite
-                if (irq_kbd_cursor_offset < irq_kbd_buffer_index)
-                {
+					cursor_pos--;
+					move_cursor(cursor_pos);
+				}
+				break;
+			case 0x4D: // Flèche Droite
+				if (irq_kbd_cursor_offset < irq_kbd_buffer_index)
+				{
 					irq_kbd_cursor_offset++;
-                    cursor_pos++;
-                    move_cursor(cursor_pos);
-                }
-                break;
-            default:
-                break;
-        }
-        return;
+					cursor_pos++;
+					move_cursor(cursor_pos);
+				}
+				break;
+			default:
+				break;
+		}
+		return;
 	}
 
 	if (scancode & 0x80)
@@ -205,38 +205,38 @@ _irq_kbd_handler(void)
 		else if (ascii == '\b')
 		{
 			if (irq_kbd_cursor_offset > 0)
-            {
-                for (uint8_t i = irq_kbd_cursor_offset - 1; i < irq_kbd_buffer_index - 1; i++)
-                {
-                    irq_kbd_buffer[i] = irq_kbd_buffer[i + 1];
-                }
-                irq_kbd_buffer_index--;
-                irq_kbd_cursor_offset--;
+			{
+				for (uint8_t i = irq_kbd_cursor_offset - 1; i < irq_kbd_buffer_index - 1; i++)
+				{
+					irq_kbd_buffer[i] = irq_kbd_buffer[i + 1];
+				}
+				irq_kbd_buffer_index--;
+				irq_kbd_cursor_offset--;
 
-                cursor_pos--;
-                move_cursor(cursor_pos);
-                refresh_tail();
-            }
+				cursor_pos--;
+				move_cursor(cursor_pos);
+				refresh_tail();
+			}
 		} 
 		else
 		{
 			if (irq_kbd_buffer_index < KBD_BUFFER_SIZE - 1) // Prevent overflow, leaving space for null terminator
 			{
 				for (uint8_t i = irq_kbd_buffer_index; i > irq_kbd_cursor_offset; i--)
-                {
-                    irq_kbd_buffer[i] = irq_kbd_buffer[i - 1];
-                }
+				{
+					irq_kbd_buffer[i] = irq_kbd_buffer[i - 1];
+				}
 
-                irq_kbd_buffer[irq_kbd_cursor_offset] = ascii;
-                irq_kbd_buffer_index++;
+				irq_kbd_buffer[irq_kbd_cursor_offset] = ascii;
+				irq_kbd_buffer_index++;
 
-                printk("%c", ascii);
-                irq_kbd_cursor_offset++;
+				printk("%c", ascii);
+				irq_kbd_cursor_offset++;
 
-                if (irq_kbd_cursor_offset < irq_kbd_buffer_index)
-                {
-                    refresh_tail();
-                }
+				if (irq_kbd_cursor_offset < irq_kbd_buffer_index)
+				{
+					refresh_tail();
+				}
 			}
 		}
 	}
@@ -261,7 +261,7 @@ kbd_read(char *buffer, size_t max_length)
 	buffer[length_to_copy] = '\0';
 
 	irq_kbd_buffer_index = 0;
-    irq_kbd_cursor_offset = 0;
+	irq_kbd_cursor_offset = 0;
 	irq_kbd_command_ready = 0;
 
 	kbd_disable();
