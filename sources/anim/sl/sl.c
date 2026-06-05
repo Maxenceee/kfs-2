@@ -15,9 +15,6 @@
 #include "std/std.h"
 #include "_sl.h"
 
-#define OK  0
-#define ERR 1
-
 int CAR_COUNT	= 0;
 int ACCIDENT	= 0;
 int LOGO		= 0;
@@ -29,7 +26,7 @@ int reset_smoke_trigger = 0;
 
 int mvaddstr(int y, int x, char *str)
 {
-	if (y < 0 || y >= VGA_HEIGHT) return OK; 
+	if (y < 0 || y >= VGA_HEIGHT) return 0; 
 
 	uint8_t attrib = (VGA_BACK_BLACK | VGA_FORE_WHITE);
 
@@ -41,7 +38,7 @@ int mvaddstr(int y, int x, char *str)
 		back_buffer[y * VGA_WIDTH + x] = (uint16_t)((attrib << 8) | *str);
 	}
 
-	return OK;
+	return 0;
 }
 
 void parse_options(const char *str)
@@ -189,7 +186,7 @@ int add_sl(int x, int move_smoke)
 
 	add_smoke(y - 1, x + LOGOFUNNEL, move_smoke);
 
-	return OK;
+	return 0;
 }
 
 int add_D51(int x, int move_smoke)
@@ -232,7 +229,7 @@ int add_D51(int x, int move_smoke)
 	}
 	add_smoke(y - 1, x + D51FUNNEL, move_smoke);
 
-	return OK;
+	return 0;
 }
 
 int add_C51(int x, int move_smoke)
@@ -275,7 +272,7 @@ int add_C51(int x, int move_smoke)
 	}
 	add_smoke(y - 1, x + C51FUNNEL, move_smoke);
 
-	return OK;
+	return 0;
 }
 
 void add_man(int y, int x)
