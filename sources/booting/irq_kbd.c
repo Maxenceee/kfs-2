@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:04:55 by mgama             #+#    #+#             */
-/*   Updated: 2026/06/05 11:15:39 by mgama            ###   ########.fr       */
+/*   Updated: 2026/06/05 15:35:57 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ volatile int irq_kbd_enabled = 0;
 volatile int irq_kdb_extended = 0;
 
 static uint16_t prompt_start_cursor_pos = 0;
+
+volatile char kbd_last_pressed_char = 0;
 
 static const char irq_kbd_qwerty_map[128] = {
 	0,  27, '1', '2', '3', '4', '5', '6', '7', '8', /* 0x00 - 0x09 */
@@ -107,6 +109,14 @@ kbd_disable(void)
 	irq_kbd_enabled = 0;
 }
 
+char
+kbd_getc_nonblock(void)
+{
+    char c = kbd_last_pressed_char;
+    kbd_last_pressed_char = 0;
+    return c;
+}
+
 static void
 refresh_tail(void)
 {
@@ -127,14 +137,36 @@ _irq_kbd_handler(void)
 {
 	uint8_t scancode = inb(0x60);
 
-	if (!irq_kbd_enabled)
-	{
-		return; 
-	}
-
 	if (scancode == 0xE0)
 	{
 		irq_kdb_extended = 1;
+		return;
+	}
+
+	if (scancode & 0x80)
+	{
+		uint8_t released_code = scancode & 0x7F;
+		if (released_code == 0x2A || released_code == 0x36)
+			irq_kbd_is_shift_pressed = 0;
+
+		return;
+	}
+
+	if (scancode == 0x2A || scancode == 0x36)
+	{
+		irq_kbd_is_shift_pressed = 1;
+		return;
+	}
+
+	char ascii = irq_kbd_is_shift_pressed ? irq_kbd_qwerty_shift_map[scancode] : irq_kbd_qwerty_map[scancode];
+
+	if (ascii != 0)
+	{
+		kbd_last_pressed_char = ascii;
+	}
+
+	if (!irq_kbd_enabled)
+	{
 		return;
 	}
 
@@ -182,24 +214,10 @@ _irq_kbd_handler(void)
 		return;
 	}
 
-	if (scancode & 0x80)
+	if (irq_kbd_command_ready)
 	{
-		uint8_t released_code = scancode & 0x7F;
-		if (released_code == 0x2A || released_code == 0x36)
-			irq_kbd_is_shift_pressed = 0;
-
 		return;
 	}
-
-	if (scancode == 0x2A || scancode == 0x36)
-	{
-		irq_kbd_is_shift_pressed = 1;
-		return;
-	}
-
-	if (irq_kbd_command_ready) return;
-
-	char ascii = irq_kbd_is_shift_pressed ? irq_kbd_qwerty_shift_map[scancode] : irq_kbd_qwerty_map[scancode];
 
 	if (ascii != 0)
 	{
@@ -227,7 +245,7 @@ _irq_kbd_handler(void)
 		} 
 		else
 		{
-			if (irq_kbd_buffer_index < KBD_BUFFER_SIZE - 1) // Prevent overflow, leaving space for null terminator
+			if (irq_kbd_buffer_index < KBD_BUFFER_SIZE - 1) // Prevent overflow
 			{
 				for (uint8_t i = irq_kbd_buffer_index; i > irq_kbd_cursor_offset; i--)
 				{

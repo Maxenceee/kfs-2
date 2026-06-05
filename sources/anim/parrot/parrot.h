@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   booting.h                                          :+:      :+:    :+:   */
+/*   parrot.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/18 14:14:32 by mgama             #+#    #+#             */
-/*   Updated: 2026/06/05 14:56:09 by mgama            ###   ########.fr       */
+/*   Created: 2026/06/05 14:17:14 by mgama             #+#    #+#             */
+/*   Updated: 2026/06/05 14:17:21 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BOOTING_H
-#define BOOTING_H
+#ifndef PARROT_H
+#define PARROT_H
 
-#include "types.h"
+void run_parrot(int loops);
 
-void	kbd_enable(void);
-void	kbd_disable(void);
-char	kbd_getc_nonblock(void);
-size_t	kbd_read(char *buffer, size_t max_length);
-
-#endif /* BOOTING_H */
+#endif /* PARROT_H */

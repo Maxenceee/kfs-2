@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 12:41:15 by mgama             #+#    #+#             */
-/*   Updated: 2026/06/05 12:44:24 by mgama            ###   ########.fr       */
+/*   Updated: 2026/06/05 15:27:29 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,19 @@
 #define COAL10 "    \\_/   \\_/    \\_/   \\_/    "
 
 #define COALDEL "                              "
+
+#define CAR01  "                              "
+#define CAR02  "                              "
+#define CAR03  " ____________________________ "
+#define CAR04  " |  ___ ___ ___ ___ ___ ___ | "
+#define CAR05  " |  |_| |_| |_| |_| |_| |_| | "
+#define CAR06  " |                          | "
+#define CAR07  "_|__________________________|_"
+#define CAR08  "_|__________________________|_"
+#define CAR09  "  |_D__D__D_|    |_D__D__D_|  "
+#define CAR10  "   \\_/   \\_/      \\_/   \\_/   "
+
+#define CARDEL "                              "
 
 #define LOGOHEIGHT    	 6
 #define LOGOFUNNEL  	 4

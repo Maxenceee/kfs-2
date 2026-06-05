@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 14:03:31 by mgama             #+#    #+#             */
-/*   Updated: 2026/06/05 12:46:04 by mgama            ###   ########.fr       */
+/*   Updated: 2026/06/05 14:18:08 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ struct command
 	X(dump)          \
 	X(echo)          \
 	X(sleep)         \
-	X(sl)
+	X(sl)            \
+	X(parrot)
 
 #define X(cmd) EXPORT_SHCMD(cmd);
 COMMAND_LIST
