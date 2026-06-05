@@ -27,7 +27,7 @@ int C51			= 0;
 static uint16_t back_buffer[VGA_HEIGHT * VGA_WIDTH];
 int reset_smoke_trigger = 0;
 
-int my_mvaddstr(int y, int x, char *str)
+int mvaddstr(int y, int x, char *str)
 {
 	if (y < 0 || y >= VGA_HEIGHT) return OK; 
 
@@ -162,15 +162,15 @@ int add_sl(int x, int move_smoke)
 	
 	for (i = 0; i <= LOGOHEIGHT; ++i)
 	{
-		my_mvaddstr(y + i, x, sl[(LOGOLENGTH + x) / 3 % LOGOPATTERNS][i]);
-		my_mvaddstr(y + i + py1, x + 21, coal[i]);
+		mvaddstr(y + i, x, sl[(LOGOLENGTH + x) / 3 % LOGOPATTERNS][i]);
+		mvaddstr(y + i + py1, x + 21, coal[i]);
 
 		for (int w = 0; w < CAR_COUNT; ++w)
 		{
 			int offset_x = 42 + (w * 21);
 			int fly_y_offset = py2 + (w * 2);
 			
-			my_mvaddstr(y + i + (FLY ? fly_y_offset : 0), x + offset_x, car[i]);
+			mvaddstr(y + i + (FLY ? fly_y_offset : 0), x + offset_x, car[i]);
 		}
 	}
 	
@@ -216,13 +216,13 @@ int add_D51(int x, int move_smoke)
 	}
 	for (i = 0; i <= D51HEIGHT; ++i)
 	{
-		my_mvaddstr(y + i, x, d51[(D51LENGTH + x) % D51PATTERNS][i]);
-		my_mvaddstr(y + i + dy, x + 53, coal[i]);
+		mvaddstr(y + i, x, d51[(D51LENGTH + x) % D51PATTERNS][i]);
+		mvaddstr(y + i + dy, x + 53, coal[i]);
 
 		for (int w = 0; w < CAR_COUNT; ++w)
 		{
 			int offset_x = 53 + 30 + (w * 30); 
-			my_mvaddstr(y + i + dy + (FLY ? (w + 1) : 0), x + offset_x, car[i]);
+			mvaddstr(y + i + dy + (FLY ? (w + 1) : 0), x + offset_x, car[i]);
 		}
 	}
 	if (ACCIDENT == 1)
@@ -259,13 +259,13 @@ int add_C51(int x, int move_smoke)
 	}
 	for (i = 0; i <= C51HEIGHT; ++i)
 	{
-		my_mvaddstr(y + i, x, c51[(C51LENGTH + x) % C51PATTERNS][i]);
-		my_mvaddstr(y + i + dy, x + 55, coal[i]);
+		mvaddstr(y + i, x, c51[(C51LENGTH + x) % C51PATTERNS][i]);
+		mvaddstr(y + i + dy, x + 55, coal[i]);
 
 		for (int w = 0; w < CAR_COUNT; ++w)
 		{
 			int offset_x = 55 + 30 + (w * 30);
-			my_mvaddstr(y + i + dy + (FLY ? (w + 1) : 0), x + offset_x, car[i]);
+			mvaddstr(y + i + dy + (FLY ? (w + 1) : 0), x + offset_x, car[i]);
 		}
 	}
 	if (ACCIDENT == 1)
@@ -283,7 +283,7 @@ void add_man(int y, int x)
 	static char *man[2][2] = {{"", "(O)"}, {"Help!", "\\O/"}};
 	for (int i = 0; i < 2; ++i)
 	{
-		my_mvaddstr(y + i, x, man[(D51LENGTH + x) / 12 % 2][i]);
+		mvaddstr(y + i, x, man[(D51LENGTH + x) / 12 % 2][i]);
 	}
 }
 
@@ -327,6 +327,6 @@ void add_smoke(int y, int x, int move_smoke)
 
 	for (int i = 0; i < sum; ++i)
 	{
-		my_mvaddstr(S[i].y, S[i].x, Smoke[S[i].kind][S[i].ptrn]);
+		mvaddstr(S[i].y, S[i].x, Smoke[S[i].kind][S[i].ptrn]);
 	}
 }
