@@ -6,14 +6,14 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:04:38 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/18 11:04:39 by mgama            ###   ########.fr       */
+/*   Updated: 2026/06/05 12:44:00 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCREEN_H
 #define SCREEN_H
 
-#include <types.h>
+#include "types.h"
 
 #define VGA_WIDTH 80
 #define VGA_HEIGHT 25

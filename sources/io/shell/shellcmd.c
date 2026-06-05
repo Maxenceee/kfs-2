@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 13:53:45 by mgama             #+#    #+#             */
-/*   Updated: 2026/06/04 18:41:00 by mgama            ###   ########.fr       */
+/*   Updated: 2026/06/05 12:54:46 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "timer/delay.h"
 #include "io/screen/screen.h"
 #include "io/print/print.h"
+#include "io/sl/sl.h"
 
 EXPORT_SHCMD(help)
 {
@@ -62,4 +63,9 @@ EXPORT_SHCMD(sleep)
 	}
 
 	ksleep(s);
+}
+
+EXPORT_SHCMD(sl)
+{
+	run_sl(args);
 }

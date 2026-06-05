@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:04:55 by mgama             #+#    #+#             */
-/*   Updated: 2026/06/04 18:42:14 by mgama            ###   ########.fr       */
+/*   Updated: 2026/06/05 11:15:39 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,13 @@ _irq_kbd_handler(void)
 
 		switch (scancode)
 		{
+			case 0x49: // Page Up
+                vga_scroll_up();
+                break;
+
+            case 0x51: // Page Down
+                vga_scroll_down();
+                break;
 			case 0x48: // Flèche Haut
 				break;
 			case 0x50: // Flèche Bas
