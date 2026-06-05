@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 12:41:15 by mgama             #+#    #+#             */
-/*   Updated: 2026/06/05 15:27:29 by mgama            ###   ########.fr       */
+/*   Updated: 2026/06/05 15:54:42 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@
 
 #define CARDEL "                              "
 
-#define LOGOHEIGHT    	 6
-#define LOGOFUNNEL  	 4
-#define LOGOLENGTH      84
-#define LOGOPATTERNS	 6
+#define LOGOHEIGHT		6
+#define LOGOFUNNEL		4
+#define LOGOLENGTH		84
+#define LOGOPATTERNS	6
 
 #define LOGO1  "     ++      +------ "
 #define LOGO2  "     ||      |+-+ |  "
@@ -123,10 +123,10 @@
 
 #define DELLN  "                     "
 
-#define C51HEIGHT 11
-#define C51FUNNEL 7
-#define C51LENGTH 87
-#define C51PATTERNS 6
+#define C51HEIGHT		11
+#define C51FUNNEL		7
+#define C51LENGTH		87
+#define C51PATTERNS		6
 
 #define C51DEL "                                                       "
 

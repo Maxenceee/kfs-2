@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:04:59 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/18 11:05:00 by mgama            ###   ########.fr       */
+/*   Updated: 2026/06/05 15:53:13 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 typedef unsigned char   uint8_t;
 typedef unsigned short  uint16_t;
-typedef unsigned int    uint32_t;
+typedef unsigned int	uint32_t;
 
-typedef char            int8_t;
-typedef short           int16_t;
-typedef int             int32_t;
+typedef char			int8_t;
+typedef short			int16_t;
+typedef int				int32_t;
 
 typedef uint32_t		  size_t;
 

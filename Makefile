@@ -1,29 +1,29 @@
-SOURCE_DIR      =   sources
-INCLUDES_DIR    =   includes
-OBJ_DIR         =   .objs
-ISO_DIR         =   iso_root
+SOURCE_DIR		=   sources
+INCLUDES_DIR	=   includes
+OBJ_DIR			=   .objs
+ISO_DIR			=   iso_root
 
-SRCS            =   $(shell find $(SOURCE_DIR) -name "*.c")
-SRCS_ASM        =   $(shell find $(SOURCE_DIR) -name "*.asm")
+SRCS			=   $(shell find $(SOURCE_DIR) -name "*.c")
+SRCS_ASM		=   $(shell find $(SOURCE_DIR) -name "*.asm")
 
-OBJS            =   $(patsubst $(SOURCE_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
-OBJS_ASM        =   $(patsubst $(SOURCE_DIR)/%.asm, $(OBJ_DIR)/%.o, $(SRCS_ASM))
+OBJS			=   $(patsubst $(SOURCE_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
+OBJS_ASM		=   $(patsubst $(SOURCE_DIR)/%.asm, $(OBJ_DIR)/%.o, $(SRCS_ASM))
 
-NAME            =   Galileo.bin
-ISO_NAME        =   Galileo.iso
+NAME			=   Galileo.bin
+ISO_NAME		=   Galileo.iso
 
-CC              =   gcc
-ASM             =   nasm
-RM              =   rm -rf
+CC				=   gcc
+ASM				=   nasm
+RM				=   rm -rf
 
-CFLAGS          =   -m32 -fno-builtin -fno-stack-protector \
-                    -nostdlib -nodefaultlibs -ffreestanding \
-                    -fno-pie -Wall \
+CFLAGS			=   -m32 -fno-builtin -fno-stack-protector \
+					-nostdlib -nodefaultlibs -ffreestanding \
+					-fno-pie -Wall \
 					-I $(INCLUDES_DIR) -I $(SOURCE_DIR) \
- 					-Wextra -Werror 
+					-Wextra -Werror 
 
-ASMFLAGS        =   -f elf32
-LDFLAGS         =   -m32 -T linker.ld -nostdlib -nodefaultlibs -no-pie
+ASMFLAGS		=   -f elf32
+LDFLAGS			=   -m32 -T linker.ld -nostdlib -nodefaultlibs -no-pie
 
 define GRUB_CONFIG
 set timeout=0
@@ -35,10 +35,10 @@ menuentry "$(NAME)" {
 endef
 export GRUB_CONFIG
 
-GREEN           =   \033[1;32m
-YELLOW          =   \033[1;33m
-RED             =   \033[1;31m
-DEFAULT         =   \033[0m
+GREEN			=   \033[1;32m
+YELLOW			=   \033[1;33m
+RED				=   \033[1;31m
+DEFAULT			=   \033[0m
 
 all: $(ISO_NAME)
 

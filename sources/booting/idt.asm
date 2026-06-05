@@ -10,15 +10,15 @@ align 8
 
 idt_start:
 	%rep 32
-		dq 0        ; The first 32 entries are reserved for CPU exceptions and interrupts
+		dq 0	; The first 32 entries are reserved for CPU exceptions and interrupts
 	%endrep
 
 	; 0x20 (32) : PIT (Timer)
-	dw 0            ; Offset 0-15 (will be filled at runtime or via macros)
-	dw 0x08         ; Segment selector (Kernel Code)
+	dw 0			; Offset 0-15 (will be filled at runtime or via macros)
+	dw 0x08			; Segment selector (Kernel Code)
 	db 0
-	db 0x8E         ; Access Byte (Present, Ring 0, Interrupt Gate)
-	dw 0            ; Offset 16-31
+	db 0x8E			; Access Byte (Present, Ring 0, Interrupt Gate)
+	dw 0			; Offset 16-31
 
 	; 0x21 (33) : PS/2 Keyboard
 	dw 0
@@ -71,9 +71,9 @@ extern _init_pit
 _setup_idt:
 	; Configure IRQ0 (PIT) - Entry 0x20
 	mov eax, _irq_pit_handler_stub
-	mov [idt_start + 0x20*8], ax          ; Offset 0-15
+	mov [idt_start + 0x20*8], ax			; Offset 0-15
 	shr eax, 16
-	mov [idt_start + 0x20*8 + 6], ax      ; Offset 16-31
+	mov [idt_start + 0x20*8 + 6], ax		; Offset 16-31
 
 	; Configure IRQ1 (Keyboard) - Entry 0x21
 	mov eax, _irq_kbd_handler_stub

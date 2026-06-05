@@ -12,19 +12,19 @@ global _irq_pit_handler_stub
 global _irq_kbd_handler_stub
 
 _irq_pit_handler_stub:
-	pushad          ; Save all general-purpose registers on the stack
-	cld             ; Clear direction flag to ensure string operations work correctly in C handlers
+	pushad			; Save all general-purpose registers on the stack
+	cld				; Clear direction flag to ensure string operations work correctly in C handlers
 	call _irq_pit_handler
-	mov al, 0x20    ; Send End of Interrupt (EOI) signal to the PIC
+	mov al, 0x20	; Send End of Interrupt (EOI) signal to the PIC
 	out 0x20, al
-	popad           ; Restore all general-purpose registers from the stack
-	iretd           ; Return from the interrupt, restoring EIP, CS, and EFLAGS
+	popad			; Restore all general-purpose registers from the stack
+	iretd			; Return from the interrupt, restoring EIP, CS, and EFLAGS
 
 _irq_kbd_handler_stub:
-	pushad          ; Save all general-purpose registers on the stack
-	cld             ; Clear direction flag to ensure string operations work correctly in C handlers
+	pushad			; Save all general-purpose registers on the stack
+	cld				; Clear direction flag to ensure string operations work correctly in C handlers
 	call _irq_kbd_handler
-	mov al, 0x20    ; Send End of Interrupt (EOI) signal to the PIC
+	mov al, 0x20	; Send End of Interrupt (EOI) signal to the PIC
 	out 0x20, al
-	popad           ; Restore all general-purpose registers from the stack
-	iretd           ; Return from the interrupt, restoring EIP, CS, and EFLAGS
+	popad			; Restore all general-purpose registers from the stack
+	iretd			; Return from the interrupt, restoring EIP, CS, and EFLAGS

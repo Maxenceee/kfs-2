@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 12:48:27 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/18 11:26:16 by mgama            ###   ########.fr       */
+/*   Updated: 2026/06/05 16:00:07 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 typedef __builtin_va_list va_list;
 
-#define va_start(v, l)  __builtin_va_start(v, l)
-#define va_end(v)       __builtin_va_end(v)
-#define va_arg(v, t)    __builtin_va_arg(v, t)
-#define va_copy(d, s)   __builtin_va_copy(d, s)
+#define va_start(v, l)	__builtin_va_start(v, l)
+#define va_end(v)		__builtin_va_end(v)
+#define va_arg(v, t)	__builtin_va_arg(v, t)
+#define va_copy(d, s)	__builtin_va_copy(d, s)
 
 #include "io/screen/screen.h"
 #include "types.h"

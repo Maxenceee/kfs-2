@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 11:00:07 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/19 11:00:08 by mgama            ###   ########.fr       */
+/*   Updated: 2026/06/05 16:00:19 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	*pkcalloc(uint32_t count, uint32_t size)
 		size = 1;
 	}
 	uint32_t total;
-    if (__builtin_mul_overflow(count, size, &total))
+	if (__builtin_mul_overflow(count, size, &total))
 	{
-        return (NULL);
+		return (NULL);
 	}
 	ptr = __printk_alloc(count * size);
 	if (ptr)

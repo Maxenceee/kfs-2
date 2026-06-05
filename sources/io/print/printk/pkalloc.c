@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 11:00:13 by mgama             #+#    #+#             */
-/*   Updated: 2026/05/19 11:00:14 by mgama            ###   ########.fr       */
+/*   Updated: 2026/06/05 16:00:14 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,20 @@ __printk_alloc(uint32_t size)
 {
 	uint32_t next_offset;
 
-    if (__builtin_add_overflow(__pk_ptr, size, &next_offset))
-    {
-        return (NULL);
-    }
+	if (__builtin_add_overflow(__pk_ptr, size, &next_offset))
+	{
+		return (NULL);
+	}
 
-    if (next_offset > PRINTK_BUFFER_SIZE)
-    {
-        return (NULL);
-    }
+	if (next_offset > PRINTK_BUFFER_SIZE)
+	{
+		return (NULL);
+	}
 
-    void *res = (void *)(__pk_stack + __pk_ptr);
-    __pk_ptr = next_offset;
+	void *res = (void *)(__pk_stack + __pk_ptr);
+	__pk_ptr = next_offset;
 
-    return (res);
+	return (res);
 }
 
 void

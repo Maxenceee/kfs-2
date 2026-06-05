@@ -20,7 +20,7 @@ _init_pit:
 
 	; Send Divisor to Counter 0
 	mov ax, PIT_DIVISOR
-	out 0x40, al        ; LSB
+	out 0x40, al		; LSB
 	mov al, ah
-	out 0x40, al        ; MSB
+	out 0x40, al		; MSB
 	ret
