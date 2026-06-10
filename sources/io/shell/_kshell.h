@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 14:03:31 by mgama             #+#    #+#             */
-/*   Updated: 2026/06/10 12:13:24 by mgama            ###   ########.fr       */
+/*   Updated: 2026/06/10 17:45:47 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ struct command
 	X(reboot)        \
 	X(shutdown)      \
 	X(dump)          \
+	X(uname)          \
 	X(echo)          \
 	X(sleep)         \
 	X(sl)            \
