@@ -34,8 +34,8 @@ if (listeFrames.length === 0) {
 }
 
 // 3. Préparation des noms pour le code C
-const prefixeMaj = nomVariable.toUpperCase(); // Ex: KNOT
-const prefixeMin = nomVariable.toLowerCase(); // Ex: knot
+const prefixeMaj = `_${nomVariable.toUpperCase()}`; // Ex: KNOT
+const prefixeMin = `_${nomVariable.toLowerCase()}`; // Ex: knot
 const nomFichierSortie = `res/${prefixeMin}_frames.h`;
 
 // 4. Traitement et conversion
