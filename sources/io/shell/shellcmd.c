@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 13:53:45 by mgama             #+#    #+#             */
-/*   Updated: 2026/06/05 14:56:55 by mgama            ###   ########.fr       */
+/*   Updated: 2026/06/10 11:50:44 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "io/screen/screen.h"
 #include "io/print/print.h"
 #include "anim/sl/sl.h"
-#include "anim/parrot/parrot.h"
+#include "anim/anim.h"
 
 EXPORT_SHCMD(help)
 {
@@ -74,4 +74,19 @@ EXPORT_SHCMD(sl)
 EXPORT_SHCMD(parrot)
 {
 	run_parrot(-1);
+}
+
+EXPORT_SHCMD(knot)
+{
+	run_knot(-1);
+}
+
+EXPORT_SHCMD(nyan)
+{
+	run_nyan(-1);
+}
+
+EXPORT_SHCMD(bomb)
+{
+	run_bomb(1);
 }

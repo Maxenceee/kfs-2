@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 12:35:15 by mgama             #+#    #+#             */
-/*   Updated: 2026/06/04 18:41:52 by mgama            ###   ########.fr       */
+/*   Updated: 2026/06/09 17:42:20 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ kstackdump(void)
 	uint32_t nb_words = (diff + 3) / sizeof(uint32_t);
 	uint32_t *ptr = (uint32_t *)esp;
 
-	printk("\n=== STACK DUMP | ESP: %p | SIZE: %d ===", esp, diff);
+	printk("\n=== STACK DUMP | ESP: %p | SIZE: %d ===", (void *)esp, diff);
 
 	for (uint32_t i = 0; i < nb_words; i += 4)
 	{
-		printk("\n%p: ", (uint32_t)(ptr + i));
+		printk("\n%p: ", (void *)(ptr + i));
 
 		for (int j = 0; j < 4; j++)
 		{
@@ -81,5 +81,5 @@ kstackdump(void)
 		}
 		printk("|");
 	}
-	printk("\n=== STACK DUMP | ESP: %p | SIZE: %d ===\n", esp, diff);
+	printk("\n=== STACK DUMP | ESP: %p | SIZE: %d ===\n", (void *)esp, diff);
 }

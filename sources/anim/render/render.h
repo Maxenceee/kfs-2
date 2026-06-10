@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parrot.h                                           :+:      :+:    :+:   */
+/*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/05 14:17:14 by mgama             #+#    #+#             */
-/*   Updated: 2026/06/05 14:17:21 by mgama            ###   ########.fr       */
+/*   Created: 2026/06/09 18:06:24 by mgama             #+#    #+#             */
+/*   Updated: 2026/06/09 18:32:19 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARROT_H
-#define PARROT_H
+#ifndef RENDER_H
+#define RENDER_H
 
-void run_parrot(int loops);
+#include "types.h"
 
-#endif /* PARROT_H */
+void	render_anim(int loops, int height, int width, const uint16_t *frames, int frame_count);
+
+#endif /* RENDER_H */

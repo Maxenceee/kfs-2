@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.h                                            :+:      :+:    :+:   */
+/*   anim.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/23 12:03:46 by mgama             #+#    #+#             */
-/*   Updated: 2026/06/09 17:41:34 by mgama            ###   ########.fr       */
+/*   Created: 2026/06/10 11:37:17 by mgama             #+#    #+#             */
+/*   Updated: 2026/06/10 11:41:04 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINT_H
-#define PRINT_H
+#ifndef ANIM_H
+#define ANIM_H
 
-#include "types.h"
+#include "anim/frames/_frames.h"
 
-#define __printflike(fmtarg, firstvararg) __attribute__((__format__(__printf__, fmtarg, firstvararg)))
+#include "anim/sl/sl.h"
 
-int printk(const char *fmt, ...) __printflike(1, 2);
-int cprintk(uint8_t attrib, const char *fmt, ...) __printflike(2, 3);
-
-void	kstackdump(void);
-
-#endif /* PRINT_H */
+#endif /* ANIM_H */
