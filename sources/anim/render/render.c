@@ -6,7 +6,7 @@
 /*   By: mgama <mgama@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 18:05:16 by mgama             #+#    #+#             */
-/*   Updated: 2026/06/09 18:32:14 by mgama            ###   ########.fr       */
+/*   Updated: 2026/06/10 14:16:13 by mgama            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ render_anim(int loops, int height, int width, const uint16_t *frames, int frame_
 					if (target_x >= 0 && target_x < VGA_WIDTH)
 					{
 						int memory_idx = (frame * height * width) + (y * width) + x;
-                        back_buffer[target_y * VGA_WIDTH + target_x] = frames[memory_idx];
+						back_buffer[target_y * VGA_WIDTH + target_x] = frames[memory_idx];
 					}
 				}
 			}

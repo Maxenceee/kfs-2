@@ -76,18 +76,18 @@ const framesConverties = listeFrames.map((frameStr, index) => {
 // 5. Construction dynamique du fichier d'en-tête C (.h)
 let cCode = `#ifndef ${prefixeMaj}_FRAMES_H\n#define ${prefixeMaj}_FRAMES_H\n\n`;
 cCode += `#include "types.h"\n\n`;
-cCode += `#define ${prefixeMaj}_FRAME_COUNT ${framesConverties.length}\n`;
-cCode += `#define ${prefixeMaj}_HEIGHT      ${FRAME_HEIGHT}\n`;
-cCode += `#define ${prefixeMaj}_WIDTH       ${FRAME_WIDTH}\n\n`;
+cCode += `#define ${prefixeMaj}_FRAME_COUNT\t${framesConverties.length}\n`;
+cCode += `#define ${prefixeMaj}_HEIGHT\t\t${FRAME_HEIGHT}\n`;
+cCode += `#define ${prefixeMaj}_WIDTH\t\t${FRAME_WIDTH}\n\n`;
 cCode += `static const uint16_t ${prefixeMin}_frames[${prefixeMaj}_FRAME_COUNT][${prefixeMaj}_HEIGHT][${prefixeMaj}_WIDTH] = {\n`;
 
 framesConverties.forEach((frame, fIndex) => {
-    cCode += "    {\n";
+    cCode += "\t{\n";
     frame.forEach(row => {
         const hexRow = row.map(word => `0x${word.toString(16).toUpperCase().padStart(4, '0')}`);
-        cCode += `        {${hexRow.join(', ')}},\n`;
+        cCode += `\t{${hexRow.join(', ')}},\n`;
     });
-    cCode += fIndex === framesConverties.length - 1 ? "    }\n" : "    },\n";
+    cCode += fIndex === framesConverties.length - 1 ? "\t}\n" : "\t},\n";
 });
 
 cCode += "};\n\n#endif\n";
