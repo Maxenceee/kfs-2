@@ -53,7 +53,7 @@ define print_progress
 	$(eval PERCENT=$(shell expr $(CURRENT_FILE) \* 100 / $(TOTAL_FILES)))
 	$(eval PROGRESS=$(shell expr $(CURRENT_FILE) \* 20 / $(TOTAL_FILES)))
 	$(eval REMAINING=$(shell expr 20 - $(PROGRESS)))
-	@printf "\r\033[K   $(GREEN)✔$(RESET) %b %-30s$(RESET)\n" "$(1)" "$$(basename $(2))"
+	@printf "\r\033[K   $(GREEN)✔$(RESET) %b %-30s$(RESET)\n" "$(1)" "$(2)"
 	@printf "   [$(GREEN)%s$(DIM)%s$(RESET)] %3d%%" \
 		"$(shell printf '%0.s#' $$(seq 1 $(PROGRESS) 2>/dev/null))" \
 		"$(shell printf '%0.s-' $$(seq 1 $(REMAINING) 2>/dev/null))" \
